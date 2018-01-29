@@ -125,6 +125,7 @@ extern "C"
 		Chao_IncrementTypeStat(&v1->DNA, v1);
 		return v5;
 	}
+	
 	struct Color
 	{
 		char r;
@@ -140,15 +141,12 @@ extern "C"
 			a = 0xff;
 		}
 	};
+	
+	DataArray(ChaoData, chaobases, 0x03C88878, 24);
 
-	DataArray(ChaoDataBase, chaobases, 0x03C88878, 24);
-
-	//FunctionPointer(void, sub_78A320, (int a1), 0x78A320);
-
-
-	__declspec(dllexport) void Init()
+	//Shiny Jewel Patch SADX
+	void PatchShinyJewelPC()
 	{
-		//Shiny Jewel Patch SADX
 		WriteData((char*)0x088A3DB, (char)0xA0);
 		WriteData((char*)0x088A3DF, (char)0xA0);
 		WriteData((char*)0x088A3E3, (char)0xA0);
@@ -178,12 +176,18 @@ extern "C"
 		WriteData((char*)0x088A443, (char)0xA0);
 		WriteData((char*)0x088A447, (char)0xA0);
 		WriteData((char*)0x088A44B, (char)0xA0);
-		
-		//Chaos Chao patch
-		WriteJump((void*)0x0073C3A0, Evolution);
 	}
 
+	__declspec(dllexport) void Init()
+	{
+
+		//PatchShinyJewelPC();
+		//Chaos Chao patch
+		//WriteJump((void*)0x0073C3A0, Evolution);
+	}
+	
 	//Commenting out stuff so I can make different dlls just incase people want to disable specific features.
+	//TODO: INI config to enable/disable parts of the mod
 
 	_declspec (dllexport) void OnFrame()
 	{
@@ -191,56 +195,64 @@ extern "C"
 		Color colors[] = { Color(255,255,255),Color(0, 255, 255), Color(255,255,255), Color(0x00, 0x64, 0x96), Color(0xFF, 0xFF, 0), Color(0xCB, 0xC0, 0xFF), Color(0xFF, 0, 0), Color(0x8C, 0x8C, 0x8C), Color(0, 0x80, 0), Color(0, 0, 0xFF), Color(0x90, 0xEE, 0x90),Color(0x80, 0, 0x80), Color(0, 0xA5, 0xFF), Color(0,0,0) };
 		if (IsLevelChaoGarden())
 		{
-			
+
 			for (char i = 0; i < 24; i++)
 			{
-				//Color Mixing
+				//Color Mixing				
 				/*
-				if (chaobases[i].DNA.Color1 > 0 && chaobases[i].DNA.Color2 > 0 && chaobases[i].DNA.Color1 != chaobases[i].DNA.Color2)
+				if (chaobases[i].data.DNA.Color1 > 0 && chaobases[i].data.DNA.Color2 > 0 && chaobases[i].data.DNA.Color1 != chaobases[i].data.DNA.Color2)
 				{
-					WriteData((char*)0x389D85C + i * 3, (char)(colors[chaobases[i].DNA.Color1].b * 0.5f + colors[chaobases[i].DNA.Color2].b * (1 - 0.5f)));
-					WriteData((char*)0x389D85D + i * 3, (char)(colors[chaobases[i].DNA.Color1].g * 0.5f + colors[chaobases[i].DNA.Color2].g * (1 - 0.5f)));
-					WriteData((char*)0x389D85E + i * 3, (char)(colors[chaobases[i].DNA.Color1].r * 0.5f + colors[chaobases[i].DNA.Color2].r * (1 - 0.5f)));
-					chaobases[i].Color = 14 + i;
-				}*/
+					WriteData((char*)0x389D85C + i * 4, (char)(colors[chaobases[i].data.DNA.Color1].b * 0.5f + colors[chaobases[i].data.DNA.Color2].b * (1 - 0.5f)));
+					WriteData((char*)0x389D85D + i * 4, (char)(colors[chaobases[i].data.DNA.Color1].g * 0.5f + colors[chaobases[i].data.DNA.Color2].g * (1 - 0.5f)));
+					WriteData((char*)0x389D85E + i * 4, (char)(colors[chaobases[i].data.DNA.Color1].r * 0.5f + colors[chaobases[i].data.DNA.Color2].r * (1 - 0.5f)));
+					WriteData((char*)0x389D85F + i * 4, (char)0xFF);
+					chaobases[i].data.Color = 14 + i;
+				}
+				*/
+
+				//And yes, I commented out comments. Innovative.
 
 				//Monster evolution
+				
 				/*
-				if (chaobases[i].Type > ChaoType_Child)
+				if (chaobases[i].data.Type > ChaoType_Child)
 				{
-					if (chaobases[i].SwimStat >= 2000 && chaobases[i].FlySwim == -1 && chaobases[i].EvolutionProgress >= 1.0f)
+					if (chaobases[i].data.SwimStat >= 2000 && chaobases[i].data.FlySwim == -1 && chaobases[i].data.EvolutionProgress >= 1.0f)
 					{
-						chaobases[i].EvolutionProgress = 1.2f;
-						chaobases[i].FlySwim = -1.5f;
+						chaobases[i].data.EvolutionProgress = 1.2f;
+						chaobases[i].data.FlySwim = -1.5f;
 					}
-					if (chaobases[i].FlyStat >= 2000 && chaobases[i].FlySwim == 1 && chaobases[i].EvolutionProgress >= 1.0f)
+					if (chaobases[i].data.FlyStat >= 2000 && chaobases[i].data.FlySwim == 1 && chaobases[i].data.EvolutionProgress >= 1.0f)
 					{
-						chaobases[i].EvolutionProgress = 1.2f;
-						chaobases[i].FlySwim = 1.5f;
+						chaobases[i].data.EvolutionProgress = 1.2f;
+						chaobases[i].data.FlySwim = 1.5f;
 					}
-					if (chaobases[i].RunStat >= 2000 && chaobases[i].PowerRun == -1 && chaobases[i].EvolutionProgress >= 1.0f)
+					if (chaobases[i].data.RunStat >= 2000 && chaobases[i].data.PowerRun == -1 && chaobases[i].data.EvolutionProgress >= 1.0f)
 					{
-						chaobases[i].EvolutionProgress = 1.2f;
-						chaobases[i].PowerRun = -1.5f;
+						chaobases[i].data.EvolutionProgress = 1.2f;
+						chaobases[i].data.PowerRun = -1.5f;
 					}
-					if (chaobases[i].PowerStat >= 2000 && chaobases[i].PowerRun == 1 && chaobases[i].EvolutionProgress >= 1.0f)
+					if (chaobases[i].data.PowerStat >= 2000 && chaobases[i].data.PowerRun == 1 && chaobases[i].data.EvolutionProgress >= 1.0f)
 					{
-						chaobases[i].EvolutionProgress = 1.2f;
-						chaobases[i].PowerRun = 1.5f;
+						chaobases[i].data.EvolutionProgress = 1.2f;
+						chaobases[i].data.PowerRun = 1.5f;
 					}
 				}
 				*/
-				//Random Mouth and Eye
-				if(chaobases[i].Type == 1 && chaobases[i].Reincarnations == 0)
-				{ 
-					chaobases[i].MouthType++;
-					if(chaobases[i].MouthType > 15)
-						chaobases[i].MouthType = 0;
-					chaobases[i].EyeType++;
-					if (chaobases[i].EyeType > 13)
-						chaobases[i].EyeType = 0;
-				}
 
+				//Random Mouth and Eye
+				
+				
+				if(chaobases[i].data.Type == 1 && chaobases[i].data.Reincarnations == 0)
+				{ 
+					chaobases[i].data.MouthType++;
+					if(chaobases[i].data.MouthType > 15)
+						chaobases[i].data.MouthType = 0;
+					chaobases[i].data.EyeType++;
+					if (chaobases[i].data.EyeType > 13)
+						chaobases[i].data.EyeType = 0;
+				}
+				
 				
 			}
 		}
