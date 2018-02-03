@@ -51,6 +51,36 @@
     <ClInclude Include="ninja.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StarnutObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IniFile.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextConv.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LifenutObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ChaonutObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HastnutObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlumObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GrapeObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CherryObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LemonObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -60,6 +90,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IniFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextConv.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
