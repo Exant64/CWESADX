@@ -141,7 +141,10 @@
     <ClInclude Include="C:\Program Files\Sega\SONICADVENTUREDX\programming\MemAccess.h" />
     <ClInclude Include="ChaonutObject.h" />
     <ClInclude Include="CherryObject.h" />
+    <ClInclude Include="CustomTree.h" />
     <ClInclude Include="d3d8types.h" />
+    <ClInclude Include="Flower1.h" />
+    <ClInclude Include="Flower2.h" />
     <ClInclude Include="GrapeObject.h" />
     <ClInclude Include="HastnutObject.h" />
     <ClInclude Include="IniFile.hpp" />
@@ -161,6 +164,7 @@
     <ClInclude Include="TextConv.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CustomTree.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
