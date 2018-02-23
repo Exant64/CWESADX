@@ -139,27 +139,34 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Program Files\Sega\SONICADVENTUREDX\programming\MemAccess.h" />
+    <ClInclude Include="ChaoBall1.h" />
     <ClInclude Include="ChaonutObject.h" />
     <ClInclude Include="CherryObject.h" />
     <ClInclude Include="CustomTree.h" />
     <ClInclude Include="d3d8types.h" />
+    <ClInclude Include="ExclamationEmote.h" />
     <ClInclude Include="Flower1.h" />
     <ClInclude Include="Flower2.h" />
     <ClInclude Include="GrapeObject.h" />
+    <ClInclude Include="HaloEmote.h" />
     <ClInclude Include="HastnutObject.h" />
+    <ClInclude Include="HeartEmote.h" />
     <ClInclude Include="IniFile.hpp" />
     <ClInclude Include="LemonObject.h" />
     <ClInclude Include="LifenutObject.h" />
     <ClInclude Include="ninja.h" />
     <ClInclude Include="PlumObject.h" />
+    <ClInclude Include="QuestionEmote.h" />
     <ClInclude Include="SADXEnums.h" />
     <ClInclude Include="SADXFunctions.h" />
     <ClInclude Include="SADXModInfo.h" />
     <ClInclude Include="SADXModLoader.h" />
     <ClInclude Include="SADXStructs.h" />
     <ClInclude Include="SADXVariables.h" />
+    <ClInclude Include="SpikeBall.h" />
     <ClInclude Include="StarnutObject.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SwirlEmote.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextConv.hpp" />
   </ItemGroup>

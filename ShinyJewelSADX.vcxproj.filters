@@ -90,6 +90,27 @@
     <ClInclude Include="Flower2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ChaoBall1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpikeBall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HeartEmote.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HaloEmote.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExclamationEmote.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SwirlEmote.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionEmote.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

@@ -20,6 +20,14 @@
 #include "Flower1.h"
 #include "Flower2.h"
 
+#include "ChaoBall1.h"
+#include "SpikeBall.h"
+#include "HeartEmote.h"
+#include "HaloEmote.h"
+#include "ExclamationEmote.h"
+#include "SwirlEmote.h"
+#include "QuestionEmote.h"
+
 extern "C"
 {
 	__declspec(dllexport) ModInfo SADXModInfo = { ModLoaderVer};
@@ -247,7 +255,6 @@ extern "C"
 			radioData->Scale.z = 1;
 		}
 	}
-
 
 	void LoadSSGardenNew()
 	{
@@ -696,18 +703,411 @@ extern "C"
 	FunctionPointer(signed int, sub_7633A0, (ObjectMaster *a1), 0x7633A0);
 	//sub_7645B0
 	FunctionPointer(signed int, sub_7645B0, (ObjectMaster *a1), 0x7645B0);
-
+	FunctionPointer(signed int, sub_736E90, (ObjectMaster *a1, int a2, int a3), 0x736E90);
 	FunctionPointer(bool, HeroTypeCheck, (ObjectMaster *a1), 0x007306B0);
 	FunctionPointer(bool, DarkTypeCheck, (ObjectMaster *a1), 0x007306F0);
 	FunctionPointer(int, DrawToy, (ObjectMaster *a1, int a2, NJS_CNK_OBJECT *model, NJS_TEXLIST *texlist), 0x00734AF0);
 
 	FunctionPointer(void, Chao_Rattle, (ObjectMaster *a1), 0x00763300);
 
+	FunctionPointer(void, PossibleWaypoint, (ObjectMaster *a1, int a2), 0x00740160);
+
+	DataPointer(NJS_CNK_OBJECT, egg, 0x03601B94);
+	
+
+	DataPointer(NJS_VECTOR, stru_3B2C660, 0x03B2C660);
+	FunctionPointer(void, sub_77E940, (FVFStruct_H_B *a1, int a2, int a3), 0x0077E940);
+	DataPointer(NJS_MATRIX, nj_unit_matrix_, 0x0389D650);
+	void __cdecl EmotionBall_Display(ObjectMaster *a1)
+	{
+			ObjectMaster *v1; // ebp
+			ChaoData1 *v2; // esi
+			double v3; // st7
+			int v4; // edi
+			double v5; // st7
+			double v6; // st7
+			double v7; // st7
+			float v8; // ST24_4
+			float v9; // ST28_4
+			float v10; // ST24_4
+			char headgear; // al
+			double v12; // st7
+			double v13; // st7
+			ChaoDataBase *chaoData; // edi
+			double v15; // st7
+			ChaoType chaotype; // cl
+			float v17; // ST24_4
+			unsigned __int64 v18; // rax
+			float v19; // ST24_4
+			float v20; // ST24_4
+			float v21; // ST24_4
+			float v22; // ST24_4
+			int v23; // eax
+			Float sy; // ST0C_4
+			Float sx; // ST08_4
+			float v26; // ST24_4
+			float XScale; // [esp+1Ch] [ebp-B8h]
+			float XScalea; // [esp+1Ch] [ebp-B8h]
+			float XScaleb; // [esp+1Ch] [ebp-B8h]
+			float YScale; // [esp+20h] [ebp-B4h]
+			float YScalea; // [esp+20h] [ebp-B4h]
+			float YScaleb; // [esp+20h] [ebp-B4h]
+			NJS_VECTOR a2; // [esp+24h] [ebp-B0h]
+			NJS_VECTOR p3; // [esp+30h] [ebp-A4h]
+			NJS_VECTOR a1a; // [esp+3Ch] [ebp-98h]
+			ChaoDataBase *v36; // [esp+48h] [ebp-8Ch]
+			NJS_VECTOR vectorA; // [esp+4Ch] [ebp-88h]
+			NJS_VECTOR vs; // [esp+58h] [ebp-7Ch]
+			FVFStruct_H_B v39; // [esp+64h] [ebp-70h]
+			int v40; // [esp+7Ch] [ebp-58h]
+			int v41; // [esp+80h] [ebp-54h]
+			int v42; // [esp+84h] [ebp-50h]
+			int v43; // [esp+88h] [ebp-4Ch]
+			int v44; // [esp+8Ch] [ebp-48h]
+			int v45; // [esp+90h] [ebp-44h]
+			int v46; // [esp+94h] [ebp-40h]
+			int v47; // [esp+98h] [ebp-3Ch]
+			int v48; // [esp+9Ch] [ebp-38h]
+			int v49; // [esp+A0h] [ebp-34h]
+			int v50; // [esp+A4h] [ebp-30h]
+			int v51; // [esp+A8h] [ebp-2Ch]
+			int v52; // [esp+ACh] [ebp-28h]
+			int v53; // [esp+B0h] [ebp-24h]
+			int v54; // [esp+B4h] [ebp-20h]
+			int v55; // [esp+B8h] [ebp-1Ch]
+			int v56; // [esp+BCh] [ebp-18h]
+			int v57; // [esp+C0h] [ebp-14h]
+			NJS_POINT2 a3; // [esp+C4h] [ebp-10h]
+			NJS_POINT2 p2; // [esp+CCh] [ebp-8h]
+
+			v1 = a1;
+			v2 = (ChaoData1*)a1->Data1;
+			v36 = v2->ChaoDataBase_ptr;
+			vectorA.x = *(float *)&v2->gap6FC[80];
+			vectorA.y = *(float *)&v2->gap6FC[84];
+			vectorA.z = *(float *)&v2->gap6FC[88];
+			vs.x = *(float *)&v2->gap6FC[148];
+			vs.y = *(float *)&v2->gap6FC[152];
+			vs.z = *(float *)&v2->gap6FC[156];
+			p3.x = *(float *)&v2->gap6FC[148];
+			p3.y = *(float *)&v2->gap6FC[152];
+			p3.z = *(float *)&v2->gap6FC[156];
+			if (GetCurrentChaoStage() == 2 && v2->entity.Position.z > -45.0 || GetCurrentChaoStage() == 3)
+			{
+				v3 = 1.0 / HorizontalStretch;
+				vectorA.x = (vectorA.x - v2->entity.Position.x) * v3 + v2->entity.Position.x;
+				vectorA.y = (vectorA.y - v2->entity.Position.y) * v3 + v2->entity.Position.y;
+				vs.x = (vs.x - v2->entity.Position.x) * v3 + v2->entity.Position.x;
+				vs.y = (vs.y - v2->entity.Position.y) * v3 + v2->entity.Position.y;
+				p3.x = (p3.x - v2->entity.Position.x) * v3 + v2->entity.Position.x;
+				p3.y = (p3.y - v2->entity.Position.y) * v3 + v2->entity.Position.y;
+			}
+			if (v2->field_B0 & 0x100000)
+			{
+				a1a.x = p3.x + *(float *)&v2->gap6FC[36];
+				a1a.y = p3.y + *(float *)&v2->gap6FC[40];
+				a1a.z = p3.z + *(float *)&v2->gap6FC[44];
+				//njProjectScreen(0, &p3, &a3);
+				//njProjectScreen(0, &a1a, &p2);
+				v4 = *(_DWORD *)&v2->gap6FC[24];
+				njColorBlendingMode(0, NJD_COLOR_BLENDING_SRCALPHA);
+				njColorBlendingMode(NJD_DESTINATION_COLOR, NJD_COLOR_BLENDING_INVSRCALPHA);
+				v39.position.x = -0.55000001;
+				v39.position.y = -0.55000001;
+				v39.position.z = 0.30000001;
+				v39.u = 0.0;
+				v39.v = 0.0;
+				v39.diffuse = v4;
+				v40 = -1089680179;
+				v41 = 1057803469;
+				v42 = 1050253722;
+				v43 = 0;
+				v44 = 1065353216;
+				v45 = v4;
+				v46 = 1057803469;
+				v47 = -1089680179;
+				v48 = 1050253722;
+				v49 = 1065353216;
+				v50 = 0;
+				v51 = v4;
+				v52 = 1057803469;
+				v53 = 1057803469;
+				v54 = 1050253722;
+				v55 = 1065353216;
+				v56 = 1065353216;
+				v57 = v4;
+				if ((int)&v2->gap6FC[62] != 10)
+				{
+					njCalcPoint(0, &vectorA, &a2);
+					v5 = a2.y;
+					if (v2->entity.Status & 0x1000)
+					{
+						v6 = v5 + 0.69999999;
+					}
+					else
+					{
+						v6 = v5 + 0.30000001;
+					}
+					a2.y = v6;
+					njPushMatrix(nj_unit_matrix_);
+					v7 = (njSin(*(_DWORD *)&v2->gap6FC[16] + 0x4000) + 1.0) * 0.079999998 + 0.92000002;
+					v8 = v7 * *(float *)&v2->gap6FC[104];
+					v9 = (2.0 - v7) * *(float *)&v2->gap6FC[108];
+					a2.x = a2.x + *(float *)&v2->gap6FC[68];
+					njSetTexture(&ChaoTexLists[3]);
+					njSetTextureNum(*(unsigned __int16 *)&v2->gap6FC[62]);
+					njTranslateV(0, &a2);
+					njScale(0, v8, v9, 0.1);
+					if ((GetCurrentChaoStage() != 2 || v2->entity.Position.z <= -45.0) && GetCurrentChaoStage() != 3)
+					{
+
+					
+						
+						
+						switch (v2->gap6FC[62])
+						{
+						
+							case 1: //exclamation
+								njScale(0, 0.3f,-0.3f, 0.3f);
+								njTranslate(0, 0, -2, 0);
+								object_0050D7B4.basicdxmodel->mats[0].diffuse.color = v39.diffuse;
+								sub_408530(&object_0050D7B4);
+								njScale(0, 0, 0, 0);
+							case 2: //question
+								njScale(0, 0.3f, 0.3f, 0.3f);
+								object_0050D134.basicdxmodel->mats[0].diffuse.color = v39.diffuse;
+								sub_408530(&object_0050D134);
+								njScale(0, 0, 0, 0);
+							case 3: //heart
+								njScale(0, 0.5f, -0.5f, 0.5f);
+								//njTranslate(0, 0, -2, 0);
+								object_004B4834.basicdxmodel->mats[0].diffuse.color = v39.diffuse;
+								sub_408530(&object_004B4834);
+								/*
+							case 4: swirl, crashes I'm guessing due to high poly count
+								njScale(0, 0.7f, -0.7f, 0.7f);
+								object_0050D544.basicdxmodel->mats[0].diffuse.color = v39.diffuse;
+								sub_408530(&object_0050D544);
+								*/
+								//Something I can't fix is that the object still rotates towards the camera to give the billboard effect.
+						}
+						
+					}	
+				}
+					else
+					{
+						PrintDebug("or else!");
+						v10 = 1.0 / HorizontalStretch;
+						njScale(0, v10, v10, v10);
+						sub_77E940(&v39, 4, 1);
+					}
+					njPopMatrixEx();
+				}
+				headgear = v36->Headgear;
+				if ((unsigned __int8)headgear >= 0xCu && (unsigned __int8)headgear <= 0xEu)
+				{
+					goto LABEL_33;
+				}
+				njCalcPoint(0, &vs, &a2);
+				v12 = a2.y;
+				if (v2->entity.Status & 0x1000)
+				{
+					v13 = v12 + 0.69999999;
+				}
+				else
+				{
+					v13 = v12 - 0.30000001;
+				}
+				a2.y = v13;
+				njPushMatrix(nj_unit_matrix_);
+				chaoData = v2->ChaoDataBase_ptr;
+				v15 = (njSin(*(_DWORD *)&v2->gap6FC[16]) + 1.0) * 0.079999998 + 0.92000002;
+				YScale = v15 * *(float *)&v2->gap6FC[172];
+				XScale = (2.0 - v15) * *(float *)&v2->gap6FC[176];
+				njTranslateV(0, &a2);
+				njSetTexture(&ChaoTexLists[3]);
+				if (chaoData->BallType)
+				{
+					PrintDebug("BallType: special");
+					if (chaoData->BallType != 1)
+					{
+					LABEL_32:
+						njPopMatrixEx();
+					LABEL_33:
+						njColorBlendingMode(0, NJD_COLOR_BLENDING_SRCALPHA);
+						njColorBlendingMode(NJD_DESTINATION_COLOR, NJD_COLOR_BLENDING_INVSRCALPHA);
+						return;
+					}
+					//njSetTextureNum((unsigned __int16)word_34BC134[*(unsigned __int16 *)&v2->gap6FC[28]]);
+					njScale(0, YScale, XScale, 1.0);
+					njColorBlendingMode(0, NJD_COLOR_BLENDING_SRCALPHA);
+					njColorBlendingMode(NJD_DESTINATION_COLOR, NJD_COLOR_BLENDING_ONE);
+				}
+				else
+				{
+					chaotype = chaoData->Type;
+					if ((unsigned __int8)chaotype < ChaoType_Tails || (unsigned __int8)chaotype > ChaoType_Amy)
+					{
+						if ((unsigned __int8)chaotype >= ChaoType_Hero_Normal)
+						{
+							if (!(((unsigned __int8)chaotype - 6) % 3))
+							{
+								a1a.x = p3.x - *((float *)&stru_3B2C660 + 3);
+								a1a.y = p3.y - *((float *)&stru_3B2C660 + 4);
+								a1a.z = p3.z - *((float *)&stru_3B2C660 + 5);
+								if (njScalor(&a1a) <= 0.0000001)
+								{
+									a1a.x = 0.0;
+									a1a.y = 1.0;
+									a1a.z = 0.0;
+								}
+								else
+								{
+									njUnitVector(&a1a);
+								}
+								YScalea = YScale + YScale;
+								XScalea = XScale + XScale;
+								v36 = (ChaoDataBase *)(unsigned __int16)(unsigned __int64)(acos(-njInnerProduct(
+									&a1a,
+									(NJS_VECTOR *)&v2->gap6FC[36]))
+									* 65536.0
+									* 0.1591549762031479);
+								//njSetTextureNum(dword_34BBCF8[(signed int)(unsigned __int64)((double)(signed int)v36 * 0.0054931640625 + 0.5)
+									//% 181] + 6);
+								float local = p2.x - a3.x;
+								v18 = (unsigned __int64)(atan2(--local, -(p2.y - a3.y)) * 65536.0 * 0.1591549762031479);
+								if ((_DWORD)v18)
+								{
+									//njRotateZ(0, (unsigned __int16)v18);
+								}
+								njScale(0, YScalea, XScalea, 1.0);
+								if (chaoData->Type == 21)
+								{
+									njColorBlendingMode(0, NJD_COLOR_BLENDING_SRCALPHA);
+									njColorBlendingMode(NJD_DESTINATION_COLOR, NJD_COLOR_BLENDING_ONE);
+								}
+								if (GetCurrentChaoStage() == 2 && v2->entity.Position.z > -45.0 || GetCurrentChaoStage() == 3)
+								{
+									v19 = 1.0 / HorizontalStretch;
+									njScale(0, v19, v19, v19);
+									sub_77E940(&v39, 4, 1);
+									goto LABEL_32;
+								}
+								goto LABEL_31;
+							}
+							v1 = a1;
+						}
+						if ((unsigned __int8)chaotype < 7u || ((unsigned __int8)chaotype - 7) % 3)
+						{
+							if (chaotype != 20)
+							{
+								njSetTextureNum(*(unsigned __int16 *)&v2->gap6FC[130]);
+								njScale(0, YScale, XScale, 1.0);
+								if (GetCurrentChaoStage() == 2 && v2->entity.Position.z > -45.0 || GetCurrentChaoStage() == 3)
+								{
+									v22 = 1.0 / HorizontalStretch;
+									njScale(0, v22, v22, v22);
+									sub_77E940(&v39, 4, 1);
+									goto LABEL_32;
+								}
+								goto LABEL_31;
+							}
+							njSetTextureNum(6u);
+							njColorBlendingMode(0, NJD_COLOR_BLENDING_SRCALPHA);
+							njColorBlendingMode(NJD_DESTINATION_COLOR, NJD_COLOR_BLENDING_ONE);
+							v23 = *(_DWORD *)&v2->gap6FC[32];
+							if (v23)
+							{
+								//njRotateZ(0, (unsigned __int16)v23);
+							}
+							sy = XScale * 1.5;
+							sx = YScale * 1.5;
+							njScale(0, sx, sy, 1.0);
+							if ((GetCurrentChaoStage() != 2 || v2->entity.Position.z <= -45.0) && GetCurrentChaoStage() != 3)
+							{
+							LABEL_31:
+								PrintDebugNumber(0x100014, (unsigned __int16)v2->ChaoDataBase_ptr->Type, 4);
+								if (HeroTypeCheck(a1)) {
+									njScale(0, 0.7f, 0.7f, 0.7f);
+									object_004C48CC.basicdxmodel->mats[0].diffuse.color = v39.diffuse;
+									sub_408530(&object_004C48CC);
+								}
+
+								if(!HeroTypeCheck(a1) && !DarkTypeCheck(a1)) 
+								{
+									njScale(0, 0.7f, 0.7f, 0.7f);
+									object_chaoball.basicdxmodel->mats[0].diffuse.color = v39.diffuse;
+									sub_408530(&object_chaoball);
+								}
+								
+								goto LABEL_32;
+							}
+							v26 = 1.0 / HorizontalStretch;
+							njScale(0, v26, v26, v26);
+						}
+						else
+						{
+							YScaleb = YScale * 1.5;
+							XScaleb = XScale * 1.5;
+							if (chaotype == 22)
+							{
+								//njSetTextureNum((unsigned __int16)word_34BC134[*(unsigned __int16 *)&v2->gap6FC[28]]);
+								njScale(0, YScaleb, XScaleb, 1.0);
+								njColorBlendingMode(0, NJD_COLOR_BLENDING_SRCALPHA);
+								njColorBlendingMode(NJD_DESTINATION_COLOR, NJD_COLOR_BLENDING_ONE);
+								if (GetCurrentChaoStage() == 2 && v2->entity.Position.z > -45.0 || GetCurrentChaoStage() == 3)
+								{
+									v21 = 1.0 / HorizontalStretch;
+									njScale(0, v21, v21, v21);
+									sub_77E940(&v39, 4, 1);
+									goto LABEL_32;
+								}
+								goto LABEL_31;
+							}
+							njSetTextureNum(5u);
+							njScale(0, YScaleb, XScaleb, 1.0);
+							if (GetCurrentChaoStage() == 2 && v2->entity.Position.z > -45.0 || GetCurrentChaoStage() == 3)
+							{
+								v20 = 1.0 / HorizontalStretch;
+								njScale(0, v20, v20, v20);
+								goto LABEL_56;
+							}
+						}
+							//sub_77E940(&v39, 4, 1);
+						njScale(0, 0.7f, 0.7f, 0.7f);
+						object_034DD9BC.basicdxmodel->mats[0].diffuse.color = v39.diffuse;
+						sub_408530(&object_034DD9BC);
+						goto LABEL_32;
+					}
+					njSetTextureNum(*(unsigned __int16 *)&v2->gap6FC[130]);
+					njScale(0, YScale, XScale, 1.0);
+				}
+				if (GetCurrentChaoStage() == 2 && v2->entity.Position.z > -45.0 || GetCurrentChaoStage() == 3)
+				{
+					v17 = 1.0 / HorizontalStretch;
+					njScale(0, v17, v17, v17);
+					goto LABEL_31;
+				}
+			LABEL_56:
+				//sub_77E940(&v39, 4, 1);
+				//PrintDebug("HeroHalo");
+				object_034DD9BC.basicdxmodel->mats[0].diffuse.color = v39.diffuse;
+				sub_408530(&object_034DD9BC);
+				goto LABEL_32;
+			}
+
 	//00763345
 	void CaptureChaoMain(ObjectMaster *a1) 
 	{
 		//debug for now, but add custom actions here
-		Chao_Rattle(a1); //I just added this for debugging reason
+		//Chao_Rattle(a1); //I just added this for debugging reason
+//		sub_736E90(a1, 5, 150);
+		ChaoData2 *data2 = (ChaoData2*)a1->Data2;
+		ChaoData1 *data1 = (ChaoData1*)a1->Data1;
+		//data1->field_40
+		//data2->gap_4C[8] = -49;
+		//data2->gap_4C[16] = -120;
+		//PossibleWaypoint(a1, 512);
 	}
 	
 	DataPointer(NJS_CNK_OBJECT, NormalRattle, 0x36B6E6C);
@@ -748,13 +1148,13 @@ extern "C"
 		//WriteCall((void*)0x76EED8, OverrideBreeding);
 		//WriteCall((void*)0x76EEF0, OverrideBreeding);
 		
-		WriteJump((void*)0x00719600, LoadSSGardenNew); //tv
-		WriteJump((void*)0x007191D0, LoadECGardenNew); //radio
+		//WriteJump((void*)0x00719600, LoadSSGardenNew); //tv
+		//WriteJump((void*)0x007191D0, LoadECGardenNew); //radio
 		WriteCall((void*)0x0076237E, Chao_Tantrum); //first custom sound
 		WriteCall((void*)0x00763345, HeroDarkRattle); //unused rattles
-		WriteCall((void*)0x00720304, CaptureChaoMain); //debug
-	
-		
+		//WriteCall((void*)0x00720304, CaptureChaoMain); //debug
+
+		WriteJump((void*)0x007364D0, EmotionBall_Display);
 
 		/*
 		for (int i = 13; i < 20; i++) 
@@ -893,4 +1293,5 @@ extern "C"
 	}
 
 	
-}
+
+	}
