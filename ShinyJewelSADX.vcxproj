@@ -112,11 +112,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SHINYJEWELSADX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>d3d8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:\Coding\SDKs\Microsoft DirectX SDK (August 2007)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,8 +145,15 @@
     <ClInclude Include="ChaoBall1.h" />
     <ClInclude Include="ChaonutObject.h" />
     <ClInclude Include="CherryObject.h" />
+    <ClInclude Include="CocoonDC.h" />
+    <ClInclude Include="CocoonHD.h" />
     <ClInclude Include="CustomTree.h" />
+    <ClInclude Include="d3d8.h" />
+    <ClInclude Include="d3d8caps.h" />
     <ClInclude Include="d3d8types.h" />
+    <ClInclude Include="DrumDC.h" />
+    <ClInclude Include="DrumStickDC.h" />
+    <ClInclude Include="EggDC.h" />
     <ClInclude Include="ExclamationEmote.h" />
     <ClInclude Include="Flower1.h" />
     <ClInclude Include="Flower2.h" />
@@ -156,6 +166,7 @@
     <ClInclude Include="LifenutObject.h" />
     <ClInclude Include="ninja.h" />
     <ClInclude Include="PlumObject.h" />
+    <ClInclude Include="PokemonEgg.h" />
     <ClInclude Include="QuestionEmote.h" />
     <ClInclude Include="SADXEnums.h" />
     <ClInclude Include="SADXFunctions.h" />
@@ -169,6 +180,8 @@
     <ClInclude Include="SwirlEmote.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextConv.hpp" />
+    <ClInclude Include="TrumpetToy.h" />
+    <ClInclude Include="UnusedFloat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CustomTree.cpp" />

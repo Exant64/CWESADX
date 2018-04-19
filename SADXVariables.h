@@ -9,6 +9,7 @@
 #include "MemAccess.h"
 #include "d3d8types.h"
 #include "SADXStructs.h"
+#include <d3d9.h>
 
 // TODO: fix recap language arrays in disassembly (02BC3228)
 
@@ -1714,6 +1715,7 @@ DataPointer(NJS_ACTION, RhinoTank_AnimB, 0x38CCA6C);
 DataPointer(CollisionData, DashPanel_Collision, 0x38CD410);
 DataPointer(NJS_TEXLIST, E_AMENBO_TEXLIST, 0x38CD5E0);
 DataArray(NJS_TEXNAME, CHAOS_BRAINFRAME_TEXNAMES, 0x38D9228, 16);
+
 DataPointer(NJS_TEXLIST, CHAOS_BRAINFRAME_TEXLIST, 0x38D92E8);
 DataPointer(NJS_OBJECT, Chaos_Puddle_Model, 0x38DD9BC);
 DataArray(NJS_TEXNAME, CHAOS_EFFECT_TEXNAMES, 0x38E1D38, 29);
