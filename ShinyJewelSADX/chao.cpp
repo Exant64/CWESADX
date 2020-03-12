@@ -9,6 +9,9 @@
 #include "albhv/albhv_fishing.h"
 #include "albhv/albhv_ball.h"
 
+FunctionPointer(void, __cdecl SetChunkColor, (int a1), 0x0078A320);
+FunctionPointer(void, ApplyWSwitch, (int a1), 0x00717470);
+
 static const void* const SwimControlPtr = (void*)0x73BB40;
 void SwimControl(ObjectMaster* a1)
 {
@@ -204,8 +207,6 @@ char __cdecl Chao_Evolve2(ObjectMaster* a1)
 	DataPointer(float, AlignmentMinimum, 0x034BBA10);
 	ChaoDataBase* v1; // esi
 	char type; // bl
-
-//	v1 = //a1->Data1.Chao->ChaoDataBase_ptr;
 	v1 = ((ChaoData1*)a1->Data1)->pParamGC;
 	if (-HPosVPosMinimum >= v1->PowerRun || v1->PowerRun >= HPosVPosMinimum || -HPosVPosMinimum >= v1->FlySwim || v1->FlySwim >= HPosVPosMinimum)
 	{
@@ -267,11 +268,13 @@ char __cdecl Chao_Evolve2(ObjectMaster* a1)
 		if (v1->Alignment <= 0.0) //if dark then
 		{
 			type += 2; //turn neutral into dark
+			ApplyWSwitch(0x40);
 			PlayJingle(118);
 		}
 		else //else if hero then
 		{
 			++type; //turn neutral into hero
+			ApplyWSwitch(0x10);
 			PlayJingle(117);
 		}
 	}
@@ -298,7 +301,6 @@ enum ChunkMaterialFlagsEnum
 	SecondTextureEnvironmentMap = 0x4,
 	UseChunkObjectColor = 0x8,
 };
-FunctionPointer(void, __cdecl SetChunkColor, (int a1), 0x0078A320);
 
 void __cdecl ChaoColoring(int texture, int color, int shiny, int highlights, NJS_CNK_MODEL* model)
 {
@@ -361,7 +363,6 @@ void __cdecl ChaoColoring(int texture, int color, int shiny, int highlights, NJS
 		goto LABEL_7;
 	}
 }
-
 
 void Chao_Init()
 {

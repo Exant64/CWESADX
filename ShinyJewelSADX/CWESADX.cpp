@@ -1455,20 +1455,6 @@ extern "C"
 		if (config->getBool("Chao World Extended", "ShinyJewelGC", false))
 			PatchShinyJewelGC();
 
-		//Chaos Chao patch
-		if (config->getBool("Chao World Extended", "CharacterEvolve", true))
-			PrintDebug("Character Chao evolution not available yet"); //WriteCall((void*)0x0073C957, Evolution);
-
-		//WriteJump((void*)0x0073E730, DrawChaoHatOverride);
-
-
-
-		//WriteJump((void*)0x00764E50, RotateChaoHook);
-		//WriteJump((void*)0x00764B80, PositionChaoHook);
-		//
-		//ChaoAnimations[0] = _de26c_motiontableentry;
-		//ChaoAnimations[0] = _ekene_intro__win_motiontableentry;
-		//ChaoAnimations[1] = _ekene_intro__win_motiontableentry;
 		if (config->getBool("Chao World Extended", "Dreamcast", true))
 		{
 			ReplaceTextures("CHAO", "CHAO_DCCWE");
