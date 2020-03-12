@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Models">
+      <UniqueIdentifier>{76489323-19b0-4eec-a0af-fd44142e4e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Animations">
+      <UniqueIdentifier>{f520fd2f-70fc-4121-bb54-e0a4816beb53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects">
+      <UniqueIdentifier>{b777b3ab-698d-452d-92b5-37671594d4e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Radio">
+      <UniqueIdentifier>{deee2112-96e6-4b94-b6ff-df76cfe8a570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\TV">
+      <UniqueIdentifier>{5edc4950-d095-48ec-bb48-22d5ad699e36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Horse">
+      <UniqueIdentifier>{4ea455a8-8150-4def-8cf7-622cdbb59d1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Seed">
+      <UniqueIdentifier>{e3fb453c-29d8-48c3-a628-5b35b09d2dc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Piano">
+      <UniqueIdentifier>{0db03207-125d-402e-ae41-29f0f45f91bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Ball">
+      <UniqueIdentifier>{4c4b9eee-06b4-46f4-9ac9-1ae1fa894274}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Level">
+      <UniqueIdentifier>{9143beab-56aa-40b0-ac3e-aed4785cce98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Particles">
+      <UniqueIdentifier>{36a334e9-9714-4b99-8851-3d53f4beeefa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Objects\Console">
+      <UniqueIdentifier>{12aff6a9-f373-46f8-83d5-11ed83e8231d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextConv.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SeedGameObject.h">
+      <Filter>Header Files\Objects\Seed</Filter>
+    </ClInclude>
+    <ClInclude Include="CWESADX.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="njdef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="al_gba_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="chao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="motiontable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="al_shape_basic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IniFile.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="data\toy\alo_fishingrod.nja">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="al_motion\alm_dance_h.nam">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="al_motion\alm_fishing.nam">
+      <Filter>Header Files\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="al_motion\alm_trumpet_dc.nam">
+      <Filter>Header Files\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="data\icon\ChaoBall1.nja">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="data\icon\ExclamationEmote.nja">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="data\icon\HaloEmote.nja">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="data\icon\HeartEmote.nja">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="data\icon\QuestionEmote.nja">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="data\icon\SpikeBall.nja">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="data\icon\SwirlEmote.nja">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="albhv\albhv_hanabi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="albhv\albhv_piano.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="albhv\albhv_console.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="albhv\albhv_float.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="data\toy\alo_float.nja">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="albhv\albhv_fishing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="albhv\albhv_ball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="al_motion\alm_zelda.nam">
+      <Filter>Header Files\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="data\Flower2.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="data\Flower1.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="data\DrumDC.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="data\DrumStickDC.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="eff\CryingParticle.h">
+      <Filter>Header Files\Objects\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="eff\ToyPresenter.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="eff\MusicParticle.h">
+      <Filter>Header Files\Objects\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="landtables\HeroGarden.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="data\TrumpetToy.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="al_toy\alo_tv.h">
+      <Filter>Header Files\Objects\TV</Filter>
+    </ClInclude>
+    <ClInclude Include="al_toy\alo_ball.h">
+      <Filter>Header Files\Objects\Ball</Filter>
+    </ClInclude>
+    <ClInclude Include="al_toy\alo_console.h">
+      <Filter>Header Files\Objects\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="al_toy\alo_horse.h">
+      <Filter>Header Files\Objects\Horse</Filter>
+    </ClInclude>
+    <ClInclude Include="al_toy\alo_piano.h">
+      <Filter>Header Files\Objects\Piano</Filter>
+    </ClInclude>
+    <ClInclude Include="al_toy\alo_radio.h">
+      <Filter>Header Files\Objects\Radio</Filter>
+    </ClInclude>
+    <ClInclude Include="al_toy\alo_toy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kinder\Classroom.h">
+      <Filter>Header Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="al_soundrestoration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dreamcast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IniFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextConv.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CWESADX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SeedGameObject.cpp">
+      <Filter>Header Files\Objects\Seed</Filter>
+    </ClCompile>
+    <ClCompile Include="motiontable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="chaodebug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="chao.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="al_shape_basic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="albhv\albhv_hanabi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="albhv\albhv_piano.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="albhv\albhv_console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="albhv\albhv_float.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="albhv\albhv_fishing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="albhv\albhv_ball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="albhv\albhv_bully.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="eff\CryingParticle.cpp">
+      <Filter>Header Files\Objects\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="eff\ToyPresenter.cpp">
+      <Filter>Header Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="eff\MusicParticle.cpp">
+      <Filter>Header Files\Objects\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="al_toy\alo_tv.cpp">
+      <Filter>Header Files\Objects\TV</Filter>
+    </ClCompile>
+    <ClCompile Include="al_toy\alo_ball.cpp">
+      <Filter>Header Files\Objects\Ball</Filter>
+    </ClCompile>
+    <ClCompile Include="al_toy\alo_console.cpp">
+      <Filter>Header Files\Objects\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="al_toy\alo_horse.cpp">
+      <Filter>Header Files\Objects\Horse</Filter>
+    </ClCompile>
+    <ClCompile Include="al_toy\alo_piano.cpp">
+      <Filter>Header Files\Objects\Piano</Filter>
+    </ClCompile>
+    <ClCompile Include="al_toy\alo_radio.cpp">
+      <Filter>Header Files\Objects\Radio</Filter>
+    </ClCompile>
+    <ClCompile Include="al_toy\alo_toy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="kinder\Classroom.cpp">
+      <Filter>Header Files\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="al_soundrestoration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dreamcast.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="al_motion\alm_hanabi_d.nam" />
+    <None Include="data\toy\alo_hanabi_d.nja" />
+    <None Include="al_motion\alm_dance_d.nam" />
+    <None Include="al_motion\alm_dance_n.nam" />
+  </ItemGroup>
+</Project>
