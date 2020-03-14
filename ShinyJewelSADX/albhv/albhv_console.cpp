@@ -6,8 +6,7 @@
 signed int __cdecl ALBHV_Touch_(ObjectMaster* a1)
 {
 	ChaoData1* v1; // esi
-	signed int v3; // eax
-	double v4; // st7
+	float v4; // st7
 	Angle v5; // ecx
 	NJS_VECTOR a3; // [esp+8h] [ebp-Ch]
 
@@ -35,13 +34,13 @@ signed int __cdecl ALBHV_Touch_(ObjectMaster* a1)
 	}
 	v4 = njSin(v1->entity.Rotation.y);
 	v5 = v1->entity.Rotation.y;
-	a3.x = v4 * 3.0 + v1->entity.Position.x;
-	a3.y = v1->entity.Position.y + 1.0;
-	a3.z = njCos(v5) * 3.0 + v1->entity.Position.z;
-	ALOField_Load(a1, 175, &a3, 3.5, 10);
+	a3.x = v4 * 3.0f + v1->entity.Position.x;
+	a3.y = v1->entity.Position.y + 1.0f;
+	a3.z = njCos(v5) * 3.0f + v1->entity.Position.z;
+	ALOField_Load(a1, 175, &a3, 3.5f, 10);
 
 	//wiifield
-	ALOField_Load(a1, 303, &a3, 3.5, 10);
+	ALOField_Load(a1, 303, &a3, 3.5f, 10);
 
 	return 1;
 }
@@ -49,7 +48,6 @@ int ALBHV_PlayOnConsole(ObjectMaster* a1)
 {
 	ChaoData1* v1; // esi
 	int v2; // eax
-	int v5; // eax
 	ObjectMaster* a1a; // [esp+Ch] [ebp+4h]
 
 	v1 = (ChaoData1*)a1->Data1;
@@ -105,7 +103,7 @@ void ALBHV_GoToConsole(ObjectMaster* a1)
 }
 
 //tv hook
-FunctionPointer(bool, __cdecl ALO_GetTVWatchPos, (NJS_VECTOR* a1), 0x0076F150);
+FunctionPointer(bool, ALO_GetTVWatchPos, (NJS_VECTOR* a1), 0x0076F150);
 signed int __cdecl ALBHV_GoToTV_(ObjectMaster* a1)
 {
 	ObjectMaster* v1; // edi

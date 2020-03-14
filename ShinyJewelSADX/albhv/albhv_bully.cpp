@@ -37,7 +37,8 @@ signed int __cdecl BullyPunch(ObjectMaster* a1)
 	{
 		ObjectMaster* obj = GetChaoObject(0, 1);
 		AL_SetBehavior(obj, BullyKnocked);
-		v2->pParamGC->Boredom -= 5000;
+		AL_EmotionAdd(a1, EM_ST_TEDIOUS, -5000); //chaoglobal todo
+		//v2->pParamGC->Boredom -= 5000;
 		return 1;
 	}
 	return 0;

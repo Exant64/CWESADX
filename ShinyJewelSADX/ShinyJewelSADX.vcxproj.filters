@@ -201,6 +201,15 @@
     <ClInclude Include="dreamcast.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="al_knowledge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kinder\HealthCenter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kinder\al_pill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -291,6 +300,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dreamcast.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="al_knowledge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="kinder\HealthCenter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

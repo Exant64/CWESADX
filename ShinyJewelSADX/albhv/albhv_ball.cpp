@@ -3,11 +3,10 @@
 
 NJS_VECTOR* __cdecl ALO_GetBallPos(ObjectMaster* a2)
 {
-	ObjectMaster* result; // eax
 	EntityData1* v2; // edi
 	float v3; // ST0C_4
 	Angle v4; // esi
-	double v5; // st7
+	float v5; // st7
 	NJS_VECTOR a1;
 
 	if (a2)
@@ -22,7 +21,7 @@ NJS_VECTOR* __cdecl ALO_GetBallPos(ObjectMaster* a2)
 		a1.y = v2->Position.y;
 		v5 = njCos(v4) * v3;
 
-		a1.z = v5 * v3 + v2->Position.z;
+		a1.z = v5 + v2->Position.z;
 
 	}
 	return  &a1;
@@ -32,8 +31,6 @@ signed int __cdecl ALBHV_Ball(ObjectMaster* a1) //copy of horse action
 	ObjectMaster* v1; // edi
 	ChaoData1* v2; // esi
 	ChaoData2* v3; // ebx
-	double v4; // st7
-	Angle v5; // ecx
 	signed int v7; // edx
 	NJS_VECTOR* v8; // ecx
 	int v10; // eax
@@ -56,9 +53,9 @@ signed int __cdecl ALBHV_Ball(ObjectMaster* a1) //copy of horse action
 		AL_FaceSetMouth(a1, 0, -1);
 
 		AL_FixPosition(a1);
-		a2.y = 0.95;
-		a2.x = njSin(v2->entity.Rotation.y) * 0.08;
-		a2.z = njCos(v2->entity.Rotation.y) * 0.08;
+		a2.y = 0.95f;
+		a2.x = njSin(v2->entity.Rotation.y) * 0.08f;
+		a2.z = njCos(v2->entity.Rotation.y) * 0.08f;
 		MOV_SetVelo(a1, &a2);
 		//v3->Speed = a2;
 		++v2->Behavior.Mode;
@@ -120,9 +117,9 @@ signed int __cdecl ALBHV_Ball(ObjectMaster* a1) //copy of horse action
 				{
 					return 0;
 				}
-				v2->entity.Position.x = (v8->x - v2->entity.Position.x) * 0.1 + v2->entity.Position.x;
-				v2->entity.Position.y = (v8->y - v2->entity.Position.y) * 0.1 + v2->entity.Position.y + 0.2f;
-				v2->entity.Position.z = (v8->z - v2->entity.Position.z) * 0.1 + v2->entity.Position.z;
+				v2->entity.Position.x = (v8->x - v2->entity.Position.x) * 0.1f + v2->entity.Position.x;
+				v2->entity.Position.y = (v8->y - v2->entity.Position.y) * 0.1f + v2->entity.Position.y + 0.2f;
+				v2->entity.Position.z = (v8->z - v2->entity.Position.z) * 0.1f + v2->entity.Position.z;
 			}
 			v2->entity.Rotation.y = BAMS_SubWrap(v2->entity.Rotation.y, v6->tp->Data1->Rotation.y, 1024);
 			return 0;
@@ -153,11 +150,11 @@ signed int __cdecl ALBHV_GoToBall(ObjectMaster* a1)
 void __cdecl Chao_BallJoinDecision(ObjectMaster* a1, float* a2)
 {
 	ChaoData1* data1 = (ChaoData1*)a1->Data1;
-	float boredom = data1->pParamGC->Boredom;
+	float boredom = AL_EmotionGetValue(a1, EM_ST_TEDIOUS);
 	float boredomMin = 1000;
 	float boredomMinAdjust = boredomMin;
 	float resultBoredomCalc = 0.0f;
-	ObjectMaster* field = ALOField_Find((ObjectMaster*)a1, 1, 233);
+	ObjectMaster* field = ALOField_Find(a1, 1, 233);
 
 	if (field)
 	{
@@ -171,7 +168,7 @@ void __cdecl Chao_BallJoinDecision(ObjectMaster* a1, float* a2)
 			AL_ScoreRandomize(&resultBoredomCalc);
 
 		}
-		if (resultBoredomCalc > (double) * a2)
+		if (resultBoredomCalc > * a2)
 		{
 			ObjectMaster* chao = field->Parent;
 			if (chao)
@@ -182,7 +179,7 @@ void __cdecl Chao_BallJoinDecision(ObjectMaster* a1, float* a2)
 			AL_SetNextBehavior(a1, ALBHV_PostureChangeSit); //crawl anim
 			//AL_SetNextBehavior((ObjectMaster*)a1, (int)Chao_BallClap); //wait until ends,then clap
 
-			*a2 = 0.99000001;
+			*a2 = 0.99f;
 		}
 	}
 }

@@ -1,3 +1,6 @@
+//#pragma warning(push)
+//#pragma warning(disable:4838)
+
 #include "stdafx.h"
 #include "CWESADX.h"
 #include "al_gba_manager.h"
@@ -21,20 +24,25 @@
 #include "data/icon/ExclamationEmote.nja"
 #include "data/icon/SwirlEmote.nja"
 #include "data/icon/QuestionEmote.nja"
+#include <cassert>
+
+#include "kinder/HealthCenter.h"
+#include "kinder/Classroom.h"
+
 extern "C"
 {
 	__declspec(dllexport) ModInfo SADXModInfo = { ModLoaderVer };
 
 
 	FunctionPointer(int, sub_735000, (ObjectMaster* a1), 0x735000);
-	FunctionPointer(ObjectMaster*, __cdecl GardenHat_Create, (int a1, NJS_VECTOR* a2, int a3, NJS_VECTOR* a4, ChaoData* a5), 0x007236F0);
-	FunctionPointer(ChaoData*, __cdecl sub_717760, (int a1), 0x717760);
-	FunctionPointer(void, __cdecl Chao_SetMedal, (ChaoSetmedalThing* a1), 0x00730360);
-	FunctionPointer(signed int, __cdecl sub_7512D0, (int a1, signed int a2), 0x7512D0);
+	FunctionPointer(ObjectMaster*, GardenHat_Create, (int a1, NJS_VECTOR* a2, int a3, NJS_VECTOR* a4, ChaoData* a5), 0x007236F0);
+	FunctionPointer(ChaoData*, sub_717760, (int a1), 0x717760);
+	FunctionPointer(void, Chao_SetMedal, (ChaoSetmedalThing* a1), 0x00730360);
+	FunctionPointer(signed int, sub_7512D0, (int a1, signed int a2), 0x7512D0);
 	DataPointer(char, CurrentChaoRaceType, 0x03CD3709); //ruby, etc
 	DataPointer(char, CurrentChaoRace, 0x03CD370A); //beginner, etc
 
-	FunctionPointer(int, __cdecl sub_74F740, (int a1), 0x74F740);
+	FunctionPointer(int, sub_74F740, (int a1), 0x74F740);
 	void RaceTest(ChaoSetmedalThing* a1)
 	{
 		Chao_SetMedal(a1);
@@ -45,9 +53,9 @@ extern "C"
 				int v1 = sub_7512D0((int)& a1->gap0[5312], 0);
 				ChaoSetmedalThing2* v3 = (ChaoSetmedalThing2*)sub_74F740((int)& a1->gap0[244 * v1 + 3264]);
 				ChaoData1* data1 = (ChaoData1*)v3->dword8D0->Data1;
-				al_race::ToyPresenter_Load(CurrentChaoRace);
+				ToyPresenter_Load(CurrentChaoRace);
 				if (CurrentChaoRace == 0)
-					data1->pParamGC->gap_0[15] = 1;
+					data1->pParamGC->gap_0[15] = 1; //todo change this to SToyFlag or something
 				else ChaoSaveFileTest[5] = 1;
 			}
 		}
@@ -55,7 +63,8 @@ extern "C"
 
 	void LoadMarketNew()
 	{
-		LoadClassRoom();
+		//LoadClassRoom();
+		HealthCenter_Prolog();
 		//PlaceRadio();
 	}
 
@@ -352,7 +361,7 @@ extern "C"
 		float v4;
 		ObjectMaster* v1 = CreateChao(chaoData, a2, buffer, position, angle);
 		AL_FaceSetEye(v1, 4, -1);
-		v4 = rand() * 0.000030517578;
+		v4 = rand() * 0.000030517578f;
 
 		if (v4 >= 0.25)
 		{
@@ -390,7 +399,6 @@ extern "C"
 	void __cdecl Chao_RaceAnimations(ObjectMaster* a1, int a2)
 	{
 		ObjectMaster* v2; // ecx
-		int result; // eax
 
 		v2 = (ObjectMaster*)a1[43].DisplaySub;
 		switch (a2)
@@ -553,9 +561,9 @@ extern "C"
 
 	DataArray(MotionTableAction, ChaoAnimations, 0x36A94E8, 625);
 
-	FunctionPointer(int, __cdecl sub_737080, (ObjectMaster* a1), 0x737080);
-	FunctionPointer(int, __cdecl ReturnBlinkValue, (ObjectMaster* a1), 0x00737060);
-	FunctionPointer(void, __cdecl sub_765010, (NJS_OBJECT* a1), 0x765010);
+	FunctionPointer(int, sub_737080, (ObjectMaster* a1), 0x737080);
+	FunctionPointer(int, ReturnBlinkValue, (ObjectMaster* a1), 0x00737060);
+	FunctionPointer(void, sub_765010, (NJS_OBJECT* a1), 0x765010);
 	DataPointer(char, ChaoNodeIndex, 0x03CE04E4);
 
 	bool RunFromPlayerRestoration(ObjectMaster* a1) //not sure if it's needed lol
@@ -1334,11 +1342,12 @@ extern "C"
 
 	__declspec(dllexport) void Init(const char* path, const HelperFunctions& helperFunctions)
 	{
-		char pathbuf[MAX_PATH];
 		const IniFile* config = new IniFile(std::string(path) + "\\config.ini");
 		//TVChannel1 = helperFunctions.RegisterMusicFile(TVChannel1Info);
 		//TVChannel2 = helperFunctions.RegisterMusicFile(TVChannel2Info);
 		//TVChannel3 = helperFunctions.RegisterMusicFile(TVChannel3Info);
+		PrintDebug(sizeof(CHAO_GLOBAL) == 0x2B8 ? "yes" : "FUCK ASS");
+		//hanabi test
 		ChaoAnimations[0x77].NJS_MOTION = &animation_00BD2C80;
 		ChaoAnimations[0x77].FlagThing1 = 3;
 		ChaoAnimations[0x77].TransitionToID = -1;
@@ -1376,11 +1385,15 @@ extern "C"
 		ChaoAnimations[index].StartFrame = 0;
 		ChaoAnimations[index].EndFrame = _109ca0.nbFrame - 1;
 #endif
+		//hero normal replaced with spartoi test
+#ifdef SPARTOI
 		int type = 6 * ((unsigned __int8)ChaoType_Hero_Normal - 2);
 		int type_ = 6 * ((unsigned __int8)ChaoType_Dark_Normal - 2);
 		NJS_OBJECT** chaoModels = (NJS_OBJECT * *)(0x34BD4A8);
+		
 		for (int i = type; i < type_; i++)
 			chaoModels[i] = &_0_Chao_Pos;
+#endif
 
 		WriteCall((void*)0x0072E729, RaceTest); //custom toy unlocks
 		WriteCall((void*)0x00715606, LoadMarketNew); //classroomtest
@@ -1390,7 +1403,7 @@ extern "C"
 		ChaoDebug_Init();
 
 		//SADX tree progress speedup
-		*(float*)0x034BBADC = 0.000049999999;
+		*(float*)0x034BBADC = 0.000049999999f;
 
 		//Crayon fix
 		NJS_MDATA2* data2 = (NJS_MDATA2*)ChaoAnimations[328].NJS_MOTION->mdata;
@@ -1400,6 +1413,7 @@ extern "C"
 		Chao_Init();
 		Toys_Init();
 
+		//disp field reenabled, debug, not even sure if it does anything
 		*(int*)0x034BB9D0 = 1;
 
 		//Sound restoration
@@ -1416,6 +1430,7 @@ extern "C"
 			WriteCall((void*)0x00737505, DarkEyeHack);
 		}
 
+		//not available for now, needs a huge rewrite
 		if (config->getBool("Chao World Extended", "3DEmotion", true))
 		{
 			//WriteJump((void*)0x007364D0, EmotionBall_Display);
@@ -1430,12 +1445,15 @@ extern "C"
 		//WriteJump((void*)0x00754D00, KillAnimation);
 		//WriteCall((void*)0x00719DCD, OverrideRace);
 
+		//restoring dances somewhere? not sure anymore
 		WriteCall((void*)0x00767FCC, OverrideCreateRace);
 		WriteCall((void*)0x00746908, WaitDance);
 		WriteCall((void*)0x00769235, OverrideCreateRace2);
 
+		//patch for clipping mouths
 		WriteCall((void*)0x0073EE3E, FixMouth);
 
+		//debug trigger field thing
 		if (config->getBool("Chao World Extended", "DebugTriggerField", false))
 		{
 			//WriteJump((void*)0x764900, ALOField_Display);

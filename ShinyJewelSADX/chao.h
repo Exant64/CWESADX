@@ -13,6 +13,7 @@ struct ChaoSetmedalThing2
 	char gap0[2256];
 	ObjectMaster* dword8D0;
 };
+DataPointer(CHAO_GLOBAL, ChaoGlobal, 0x034BB9C0);
 typedef ChaoData1 chaowk;
 typedef int(__cdecl* BHV_FUNC)(ObjectMaster*);
 #define BHVFunc(NAME, ADDRESS) FunctionPointer(int,NAME,(ObjectMaster*),ADDRESS);
@@ -28,6 +29,8 @@ enum
 void SwimControl(ObjectMaster* a1);
 FunctionPointer(int, MOV_TurnToAim2, (ObjectMaster* a1, int a2), 0x00740160);
 FunctionPointer(signed int, AL_MoveHoldingObject, (ObjectMaster* a1), 0x744600);
+FunctionPointer(signed int, AL_EmotionAdd, (ObjectMaster* a1, EMOTION_ENUM a2, int a3), 0x00720030);
+FunctionPointer(signed int, AL_EmotionGetValue, (ObjectMaster* a1, EMOTION_ENUM a2), 0x00720160);
 FunctionPointer(void, AL_SetBehavior, (ObjectMaster* a1, signed int(__cdecl* a2)(ObjectMaster*)), 0x0071EF10);
 FunctionPointer(void, AL_SetNextBehavior, (ObjectMaster* a1, signed int(__cdecl* a2)(ObjectMaster*)), 0x0071EF30);
 FunctionPointer(void, AL_SetMotionLink, (ObjectMaster* a1, int a2), 0x00734F00);
@@ -35,31 +38,30 @@ FunctionPointer(void, AL_IconSet, (ObjectMaster* a1, int a2, int a3), 0x00736E90
 FunctionPointer(void, AL_FaceSetMouth, (ObjectMaster* a1, int a2, int a3), 0x00737190);
 FunctionPointer(void, AL_FaceSetEye, (ObjectMaster* a1, int a2, int n), 0x007370A0);
 FunctionPointer(void, AL_SetMotionLinkStep, (ObjectMaster* a1, int a2, unsigned __int16 a3), 0x00734F20);
-FunctionPointer(int, __cdecl MOV_SetAimPos, (ObjectMaster* a1, NJS_VECTOR* a2), 0x00740080);
+FunctionPointer(int, MOV_SetAimPos, (ObjectMaster* a1, NJS_VECTOR* a2), 0x00740080);
 FunctionPointer(bool, AL_IsHero2, (ObjectMaster* a1), 0x007306B0);
 FunctionPointer(bool, AL_IsDark2, (ObjectMaster* a1), 0x007306F0);
 FunctionPointer(int, AL_SetItem, (ObjectMaster* a1, int a2, NJS_CNK_OBJECT* model, NJS_TEXLIST* texlist), 0x00734AF0);
 FunctionPointer(int, AL_SetItemOffset, (ObjectMaster* a1, int a2, AL_ITEM_INFO* pInfo), 0x00734B60);
 FunctionPointer(void, AL_SetItemParallelLeftHand, (ObjectMaster* a1, NJS_CNK_OBJECT* a2, NJS_TEXLIST* a3), 0x00734C20);
-FunctionPointer(ObjectMaster*, __cdecl AL_GetFoundToyTask, (ObjectMaster* a1), 0x0073E6C0);
-FunctionPointer(signed int, __cdecl ALW_LockOn, (ObjectMaster* a1, ObjectMaster* a2), 0x71A380);
-FunctionPointer(al_entry_work*, __cdecl ALW_IsCommunicating, (ObjectMaster* retstr), 0x71A560);
-FunctionPointer(void, __cdecl AL_FixPosition, (ObjectMaster* a1), 0x00731D20);
-FunctionPointer(int, __cdecl MOV_SetVelo, (ObjectMaster* a1, NJS_VECTOR* a2), 0x0073FFE0);
-FunctionPointer(void, __cdecl AL_SetMotionSkip, (ObjectMaster* a1, int a2), 0x734F60);
-FunctionPointer(bool, __cdecl ALW_IsSheAttentionOtherOne, (ObjectMaster* a1, ObjectMaster* a2), 0x71A490);
-FunctionPointer(signed int, __cdecl ALW_CommunicationOn, (ObjectMaster* a1, ObjectMaster* a2), 0x71A4C0);
-FunctionPointer(int, __cdecl AL_SetIntervalTimer, (ObjectMaster* a1, unsigned __int16 a2, int a3), 0x73CF10);
-FunctionPointer(double, __cdecl AL_CalcScoreTypeA, (signed int value, signed int minimum), 0x0073CE10);
-FunctionPointer(void, __cdecl AL_CalcIntentionScore_JoinMusic, (ObjectMaster* a1, float* a2), 0x00761DA0);
-FunctionPointer(void, __cdecl AL_ScoreRandomize, (float* a1), 0x0073CEA0);
+FunctionPointer(ObjectMaster*, AL_GetFoundToyTask, (ObjectMaster* a1), 0x0073E6C0);
+FunctionPointer(signed int, ALW_LockOn, (ObjectMaster* a1, ObjectMaster* a2), 0x71A380);
+FunctionPointer(al_entry_work*, ALW_IsCommunicating, (ObjectMaster* retstr), 0x71A560);
+FunctionPointer(void, AL_FixPosition, (ObjectMaster* a1), 0x00731D20);
+FunctionPointer(int, MOV_SetVelo, (ObjectMaster* a1, NJS_VECTOR* a2), 0x0073FFE0);
+FunctionPointer(void, AL_SetMotionSkip, (ObjectMaster* a1, int a2), 0x734F60);
+FunctionPointer(bool, ALW_IsSheAttentionOtherOne, (ObjectMaster* a1, ObjectMaster* a2), 0x71A490);
+FunctionPointer(signed int, ALW_CommunicationOn, (ObjectMaster* a1, ObjectMaster* a2), 0x71A4C0);
+FunctionPointer(int, AL_SetIntervalTimer, (ObjectMaster* a1, unsigned __int16 a2, int a3), 0x73CF10);
+FunctionPointer(double, AL_CalcScoreTypeA, (signed int value, signed int minimum), 0x0073CE10);
+FunctionPointer(void, AL_CalcIntentionScore_JoinMusic, (ObjectMaster* a1, float* a2), 0x00761DA0);
+FunctionPointer(void, AL_ScoreRandomize, (float* a1), 0x0073CEA0);
 FunctionPointer(void, AL_CalcIntentionScore_Fear, (ObjectMaster* a1, float* a2), 0x0075E460);
 FunctionPointer(bool, AL_IsMotionStop, (ObjectMaster* a1), 0x735040);
 FunctionPointer(bool, AL_IsMotionEnd, (ObjectMaster* a1), 0x00735020);
-FunctionPointer(signed int, __cdecl AL_EmotionGetValue, (ObjectMaster* a1, unsigned int a2), 0x00720160);
-FunctionPointer(void, __cdecl AL_ForwardAcc, (ObjectMaster* a1, float a2), 0x00723F60);
-FunctionPointer(void, __cdecl AL_ForwardSpd, (ObjectMaster* a1, float a2), 0x00723F90);
-FunctionPointer(void, __cdecl AL_Brake, (ObjectMaster* tp, float brake), 0x00723FC0);
+FunctionPointer(void, AL_ForwardAcc, (ObjectMaster* a1, float a2), 0x00723F60);
+FunctionPointer(void, AL_ForwardSpd, (ObjectMaster* a1, float a2), 0x00723F90);
+FunctionPointer(void, AL_Brake, (ObjectMaster* tp, float brake), 0x00723FC0);
 
 BHVFunc(ALBHV_OsanpoThrown, 0x71EB50)
 BHVFunc(ALBHV_OdekakeEject, 0x71F0C0)

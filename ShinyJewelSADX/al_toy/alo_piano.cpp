@@ -5,17 +5,16 @@
 
 bool __cdecl Calc(ObjectMaster* a2, NJS_VECTOR* a1)
 {
-	ObjectMaster* result; // eax
 	EntityData1* v2; // edi
 	float v3; // ST0C_4
 	Angle v4; // esi
-	double v5; // st7
+	float v5; // st7
 
 
 	if (a2)
 	{
 		v2 = a2->Data1;
-		v3 = (double)rand() * 0.000030517578 * 3.0 + 10.0;
+		v3 = (double)rand() * 0.000030517578f * 3.0f + 10.0f;
 		v3 = 2;
 		v4 = v2->Rotation.y + 0x8000;
 		//- (unsigned __int64)(((double)rand() * 0.000030517578 * 80.0 - 40.0) * 65536.0 * -0.002777777777777778)
@@ -42,7 +41,7 @@ void Piano_Display(ObjectMaster* a1)
 		njTranslate(0, a1->Data1->Position.x, a1->Data1->Position.y, a1->Data1->Position.z);
 		njRotateY(0, a1->Data1->Rotation.y);
 		njScale(0, 1, 1, 1);
-		//			njCnkDrawObject(object_alo_hanabi_n_hanabi_n__3PAUcnkobj__A);
+		//njCnkDrawObject(_object_alo_jimen_pos_pen_pos_pen__3PAUcnkobj__A);
 
 		njControl3D_Remove(NJD_CONTROL_3D_TRANS_MODIFIER | NJD_CONTROL_3D_SHADOW);
 		njPopMatrixEx();

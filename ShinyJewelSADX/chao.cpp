@@ -9,7 +9,9 @@
 #include "albhv/albhv_fishing.h"
 #include "albhv/albhv_ball.h"
 
-FunctionPointer(void, __cdecl SetChunkColor, (int a1), 0x0078A320);
+#include "al_knowledge.h"
+
+FunctionPointer(void, SetChunkColor, (int a1), 0x0078A320);
 FunctionPointer(void, ApplyWSwitch, (int a1), 0x00717470);
 
 static const void* const SwimControlPtr = (void*)0x73BB40;
@@ -20,76 +22,14 @@ void SwimControl(ObjectMaster* a1)
 		call SwimControlPtr
 	}
 }
-signed int __cdecl Whistle(ObjectMaster* a1)
-{
-	bool v1; // eax
-	signed int result; // eax
-
-	ChaoData1* data = (ChaoData1*)a1->Data1;
-
-	switch (GetCurrentCharacterID())
-	{
-	case Characters_Sonic:
-		v1 = (EntityData1Ptrs[0]->Action == 74);
-		goto LABEL_8;
-	case Characters_Tails:
-		v1 = (EntityData1Ptrs[0]->Action == 66);
-		goto LABEL_8;
-	case Characters_Knuckles:
-		v1 = (EntityData1Ptrs[0]->Action == 56);
-		goto LABEL_8;
-	case Characters_Amy:
-		v1 = (EntityData1Ptrs[0]->Action == 52);
-		goto LABEL_8;
-	case Characters_Gamma:
-		v1 = (EntityData1Ptrs[0]->Action == 58);
-		goto LABEL_8;
-	case Characters_Big:
-		v1 = (EntityData1Ptrs[0]->Action == 54);
-	LABEL_8:
-		if (!v1 || ChaoDistanceFromPlayer(a1, 0) >= 10000.0)
-		{
-			goto LABEL_13;
-		}
-		if (GetChaoCharacterBond(a1) > 50)
-		{
-			if (rand() * 0.000030517578 > 0.5f && AL_IsHero2(a1))
-				AL_SetBehavior(a1, ALBHV_SuriSuriPlayer);
-			else
-				AL_SetBehavior(a1, ALBHV_NoticePlayer);
-		}
-		result = 1;
-		break;
-	default:
-	LABEL_13:
-		result = 0;
-		break;
-	}
-	return result;
-}
 
 signed int __cdecl Tantrum(ObjectMaster* a1)
 {
 	ObjectMaster* v1; // edi
 	chaowk* v2; // esi
 	int v3; // eax
-	int v5; // eax
 	float v6; // ST2C_4
-	int a1a; // [esp+10h] [ebp+4h]W
-	double v7; // st7
 	//Data1Ptr v8; // esi
-	int v9; // ecx
-	int v10; // eax
-	int v11; // edx
-	double v12; // st7
-	int v13; // ecx
-	int v14; // eax
-	double v15; // st7
-	float v16[2]; // [esp+10h] [ebp-18h]
-	int v17; // [esp+18h] [ebp-10h]
-	float v18; // [esp+1Ch] [ebp-Ch]
-	float v19; // [esp+20h] [ebp-8h]
-	float v20; // [esp+24h] [ebp-4h]
 	v1 = a1;
 	v2 = (chaowk*)a1->Data1;
 	v3 = v2->Behavior.Mode;
@@ -100,9 +40,9 @@ signed int __cdecl Tantrum(ObjectMaster* a1)
 			v2->Behavior.Timer--;
 			if (v2->Behavior.Timer <= 0)
 			{
-				v6 = (10000 - AL_EmotionGetValue(a1, 0xAu)) * 0.000099999997;
+				v6 = (10000 - AL_EmotionGetValue(a1, (EMOTION_ENUM)0xAu)) * 0.000099999997;
 
-				AL_SetIntervalTimer(v1, 0xEu, ((rand() * 0.000030517578 + v6) * 10800 * 0.5 + 1200));
+				AL_SetIntervalTimer(v1, 0xEu, ((rand() * 0.000030517578f + v6) * 10800 * 0.5f + 1200));
 				return 1;
 			}
 		}
@@ -113,7 +53,7 @@ signed int __cdecl Tantrum(ObjectMaster* a1)
 		AL_FaceSetMouth(a1, 6, -1);
 		AL_SetMotionLinkStep(a1, 479, 0x14u);
 		++v2->Behavior.Mode;
-		v2->Behavior.Timer = (240 - (rand() * 0.000030517578 * -201.0));
+		v2->Behavior.Timer = (240 - (rand() * 0.000030517578f * -201.0f));
 	}
 	/*
 	if (v4->Timer % 8 < 4)
@@ -168,17 +108,45 @@ signed int __cdecl FartReaction(ObjectMaster* a1)
 		return 1;
 	return 0;
 }
-void ThinkControllerHook(ObjectMaster* a1, float* a2)//fart reaction restore
+
+int(__cdecl* ALBHV_IllnessFunc[])(ObjectMaster*) =
+{
+  ALBHV_Seki,
+  ALBHV_Kusyami,
+  ALBHV_Kayui,
+  ALBHV_Hanamizu,
+  ALBHV_Syakkuri,
+  ALBHV_Haraita
+};
+void AL_CalcIntention_Illness(ObjectMaster* a1, float* a2)
+{
+	ChaoData1* data1 = (ChaoData1*)a1->Data1;
+	for (int i = 0; i < 6; i++) 
+	{
+		if (data1->pParamGC->Emotion.IllState[i] < 0)
+		{
+			if (((AL_EmotionGetValue(a1, EM_ST_CONDITION)) + 20000) < (rand() * 0.000030517578125f * 30000.0f))
+			{
+				AL_SetBehavior(a1, ALBHV_IllnessFunc[i]);
+				*a2 = 0.99f;
+			}
+		}
+	}
+}
+
+void ThinkControllerHook(ObjectMaster* a1, float* a2)
 {
 	ChaoData1* data1 = (ChaoData1*)a1->Data1;
 	ChaoData2* data2 = (ChaoData2*)a1->Data2;
 
+	//fart reaction restoration
 	if (ALOField_Find(a1, 1, 151))
 	{
 		AL_SetBehavior(a1, FartReaction);
 		*a2 = 1;
 	}
 
+	AL_CalcIntention_Illness(a1, a2);
 	AL_CalcIntentionScore_Fear(a1, a2);
 }
 
@@ -364,20 +332,57 @@ void __cdecl ChaoColoring(int texture, int color, int shiny, int highlights, NJS
 	}
 }
 
+void AL_CalcParameter_Condition(ObjectMaster* a1, EMOTION_ENUM a2, int a3)
+{
+	//todo check if this works?
+	AL_EmotionAdd(a1, a2, a3);
+
+	if(AL_EmotionGetValue(a1,EM_ST_NOURISHMENT) > ChaoGlobal.ParamConditionTriggerAddN)
+		AL_EmotionAdd(a1, EM_ST_CONDITION, ChaoGlobal.ParamAddConditionN);
+	if (AL_EmotionGetValue(a1, EM_ST_NOURISHMENT) < ChaoGlobal.ParamConditionTriggerSubN)
+		AL_EmotionAdd(a1, EM_ST_CONDITION, -ChaoGlobal.ParamSubConditionN);
+	if (AL_EmotionGetValue(a1, EM_ST_STRESS) > ChaoGlobal.ParamConditionTriggerS)
+		AL_EmotionAdd(a1, EM_ST_CONDITION, -ChaoGlobal.ParamSubConditionS);
+	if (AL_EmotionGetValue(a1, EM_MD_PAIN) > ChaoGlobal.ParamConditionTriggerP)
+		AL_EmotionAdd(a1, EM_ST_CONDITION, -ChaoGlobal.ParamSubConditionP);
+}
+
 void Chao_Init()
 {
-	WriteJump((void*)0x0078AE30, ChaoColoring);
+	//dont remember
+	//WriteJump((void*)0x0078AE30, ChaoColoring);
+
+	//character chao
 	WriteJump((void*)0x0073C3A0, Chao_Evolve2);
+
+	//sound restoration, todo restore particles
 	WriteJump((void*)0x007622B0, Tantrum);
-	WriteJump((void*)0x0073B770, Whistle);
+
+	//console restoration 
 	WriteJump(ALBHV_GoToTV, ALBHV_GoToTV_);
+
+	//temp debug hanabi
 	WriteJump(ALBHV_Think, ALBHV_Hanabi_);
+
+	//float toy
 	WriteCall((void*)0x0073C13F, ALBHV_FloatCheck);
+
+	//piano
 	WriteData((int*)0x0075F2E1, (int)ALBHV_GoToPiano);
 	//WriteData((int*)0x0075F2E8, (int)& Chao_BallJoinDecision);
 	//WriteData((int*)0x0075F2EE, (int)& behaviour::ALBHV_GoToConsole);
-	
+
+	//distance timers restored
+	WriteCall((void*)0x00731B35, AL_KW_Control);
+	WriteCall((void*)0x00731B1F, AL_KW_Control);
+
+	//brings back condition values increasing
+	WriteCall((void*)0x00731A8F, AL_CalcParameter_Condition);
+
+	//think controller custom
 	WriteCall((void*)0x0073D4B1, ThinkControllerHook);
-	WriteCall((void*)0x00763345, HeroDarkRattle); //unused rattles
+
+	//unused rattles
+	WriteCall((void*)0x00763345, HeroDarkRattle); 
 	
 }

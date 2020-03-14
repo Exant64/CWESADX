@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "Classroom.h"
 #include "../chao.h"
+#include "../CWESADX.h"
 int ClassAnimations[] = { 0x137, 0x145, 0x154, 0x163, 0x15D, 0x185, 0x183, 0x187, 0x5C, 0x23D, 0x121, 0x1D8, 0x58 };
 NJS_VECTOR ClassroomSpawnpoints[] = { {-18.0,0.0,8.0}, {10.0, 0.0, 12.0}, {-7.0, 0.0, -6.0}, {-2.0, 0.0, 6.0} };
 #pragma region ClassRoomModel
@@ -9501,7 +9502,6 @@ FunctionPointer(void, __cdecl sub_73F5A0, (char *a1, int a2), 0x73F5A0);
 FunctionPointer(void, sub_72A750, (), 0x72A750);
 FunctionPointer(void, sub_72A570, (), 0x72A570);
 FunctionPointer(void, sub_724E60, (), 0x724E60);
-FunctionPointer(void, sub_722500, (), 0x722500);
 void __cdecl sub_588560(ObjectMaster *a1)
 {
 	EntityData1* v1; // eax
@@ -9521,7 +9521,6 @@ void __cdecl SetClassChaoAnim(ObjectMaster *a1)
 	ObjectMaster *v2; // edi
 	__int16 v3; // ax
 	double v4; // st7
-	int*  check;
 	v1 = a1->Data1;
 	v2 = (ObjectMaster *)v1->Rotation.x;
 	if (v2) {
@@ -9549,7 +9548,6 @@ ObjectMaster * sub_588580(ObjectMaster *result, char a4)
 	double v4; // st7
 	ObjectMaster *v5; // eax
 	ObjectMaster * v6; // esi
-	int v7; // ST20_4
 
 	if (result)
 	{
@@ -9590,7 +9588,7 @@ ObjectMaster * sub_588580(ObjectMaster *result, char a4)
 	}
 	return result;
 }
-FunctionPointer(void, __cdecl SetNextChaoLevel, (int a1), 0x00715700);
+
 struct AL_KinderWindowSelection
 {
 	NJS_COLOR color;
@@ -9698,14 +9696,16 @@ void __cdecl ClassRoom_Main(ObjectMaster *a1)
 
 	//goto OverRendering;
 
+
+
 #pragma region Rendering
 	
 	
 	sub_724690(0, 255);
 	sub_724A20(0x033A5ED4, "asdasdasd", 0, 999);
 	ChaoHudThing* ad = (ChaoHudThing*)0x033A5ED4;
-	float v13 = VerticalStretch * 240.0 - 42.0;
-	float v14 = (double)(580 - ad->position.y) - 320.0 + HorizontalStretch * 320.0;
+	float v13 = VerticalStretch * 240.0f - 42.0f;
+	float v14 = (580 - ad->position.y) - 320.0f + HorizontalStretch * 320.0f;
 	sub_724AC0(0x033A5ED4, v14, v13, 0xBF800000);
 	sub_724A90(0x033A5ED4);
 	RenderKinderWindowChild(v2->LessonPanel);
@@ -9719,7 +9719,7 @@ void __cdecl ClassRoom_Main(ObjectMaster *a1)
 		RenderKinderWindow((ObjectMaster*)v2->Button3);
 		
 #pragma endregion
-	OverRendering:
+
 	if (v2->selection < 0)
 		v2->selection = 2;
 	if (v2->selection > 2)
@@ -9752,13 +9752,29 @@ void __cdecl ClassRoom_Delete (ObjectMaster *a1)
 	//njReleaseTexture(&al_stg_kinder_ad_tex_TEXLIST);
 	FreeChaoTexlist(1u);
 }
+
+
+void __cdecl sub_72A6C0(int a1)
+{
+	camcont_wp.camxpos = 0;
+	camcont_wp.camypos = 10;
+	camcont_wp.camzpos = 45;
+	camcont_wp.tgtxpos = 0;
+	camcont_wp.tgtypos = 1;
+	camcont_wp.tgtzpos = 0;
+	camcont_wp.angx = 0;//v1->EntityData1.Rotation.x;
+	camcont_wp.angy = 12743;//v1->EntityData1.Rotation.y;
+	camcont_wp.angz = 0;// v1->EntityData1.Rotation.z;
+	//result = LODWORD(v1->field_70);
+	//LODWORD(camcont_wp.tgtdist) = result;
+}
 void __cdecl ClassRoom_Load(ObjectMaster *a1)
 {
 	Load_al_stg_kinder_ad_tex();
 	sub_72A750();
 	sub_72A570();
 	sub_724E60();
-	
+	CameraSetCollisionCameraFunc(sub_72A6C0,1,2);
 	SetGlobalPoint2Col_Colors(0xFF000000, 0xFF000000, 0xFF000000);
 	
 	LoadChaoTexlist("AL_TEX_COMMON", &ChaoTexLists[1], 1u);

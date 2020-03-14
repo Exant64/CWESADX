@@ -2,7 +2,6 @@
 #include "..//chao.h"
 bool __cdecl ALO_GetPianoPlayPos(ObjectMaster* a2, NJS_VECTOR* a1)
 {
-	ObjectMaster* result; // eax
 	EntityData1* v2; // edi
 	float v3; // ST0C_4
 	Angle v4; // esi

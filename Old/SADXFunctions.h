@@ -26,6 +26,9 @@ typedef bool _BOOL1;
 // SADX Functions
 #define ObjectFunc(NAME, ADDRESS) FunctionPointer(void,NAME,(ObjectMaster *obj),ADDRESS)
 
+//my additions
+FunctionPointer(char, CameraSetCollisionCameraFunc, (void(__cdecl* a1)(int), char a2, char a3), 0x00436210);
+
 FunctionPointer(void, PrintDebug, (const char *Format, ...), 0x401000);
 FunctionPointer(void, CopyToGlobalSprite_ScalePosition, (NJS_SPRITE *sprite), 0x401030);
 FunctionPointer(void, CopyToGlobalSprite_NativeToCurrent, (NJS_SPRITE *sprite), 0x401070);
@@ -2344,10 +2347,10 @@ FunctionPointer(int, ChaoGardenFunc_RaceEntry, (), 0x7199E0);
 FunctionPointer(int, ChaoGardenFunc_Transporter, (), 0x719A00);
 VoidFunc(LoadChaoNamingMachine, 0x719C40);
 ObjectFunc(ChaoStgRace_Main, 0x719D00);
-FunctionPointer(ObjectMaster *, __cdecl ALOField_Load, (ObjectMaster *a1, char a2, NJS_VECTOR *a3, float a4, int random), 0x00764A60);
-FunctionPointer(ObjectMaster *, __cdecl ALOField_Find, (ObjectMaster *a1, int a2, char a3), 0x0723FF0);
-FunctionPointer(ObjectMaster *, __cdecl ALOField_Find2, (EntityData1 *a1, int a2), 0x0041C930);
-FunctionPointer(ObjectMaster *, __cdecl j_ALOField_Load2, (char a1, NJS_VECTOR *a2, int a3, int a4), 0x00764AF0);
+FunctionPointer(ObjectMaster *, ALOField_Load, (ObjectMaster *a1, char a2, NJS_VECTOR *a3, float a4, int random), 0x00764A60);
+FunctionPointer(ObjectMaster *, ALOField_Find, (ObjectMaster *a1, int a2, char a3), 0x0723FF0);
+FunctionPointer(ObjectMaster *, ALOField_Find2, (EntityData1 *a1, int a2), 0x0041C930);
+FunctionPointer(ObjectMaster *, j_ALOField_Load2, (char a1, NJS_VECTOR *a2, int a3, int a4), 0x00764AF0);
 VoidFunc(LoadChaoRace, 0x719DB0);
 FunctionPointer(int, ChaoGardenFunc_Race, (), 0x719DF0);
 FunctionPointer(ObjectMaster *, GetChaoObject, (unsigned __int16 zero, unsigned __int16 index), 0x71A1F0);

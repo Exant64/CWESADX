@@ -73,7 +73,6 @@ void __cdecl DeleteChunkObjectPointer(BasicObjectPointer* a1)
 void __cdecl Chao_SetVertexColor(BasicObjectPointer* a1, NJS_BGRA a2)
 {
 	NJS_MODEL_SADX* v2; // eax
-	NJS_BGRA* v3; // eax
 
 	if (a1)
 	{
@@ -289,7 +288,7 @@ void MorphChao()
 		if(LookUpMorphFlag[i] & 1)
 			if (model->basicdxmodel) 
 		{
-			if(IsChild)
+			if(isChild)
 			if(i != 37 && i != 39)
 			for (int j = 0; j < model->basicdxmodel->nbPoint; j++) 
 			{
@@ -477,7 +476,6 @@ void __cdecl sub_767790(ObjectMaster* a1)
 	int ChaoType; // eax
 	bool IsChild; // zf
 	AL_GROUP_OBJECT_LIST* v6; // eax
-	AL_GROUP_OBJECT_LIST* v7; // eax
 	double v8; // st7
 	int v9; // [esp-4h] [ebp-Ch]
 
@@ -503,7 +501,7 @@ void __cdecl sub_767790(ObjectMaster* a1)
 			NormalRunPowerM = v1->Shape.pObjectList->Run;
 			HeroRunPowerM = v1->Shape.pObjectListH->Run;
 			DarkRPM = v1->Shape.pObjectListD->Run;
-			PowerRun = PowerRun * -1.0;
+			PowerRun = PowerRun * -1.0f;
 		}
 		else
 		{
@@ -525,88 +523,88 @@ void __cdecl sub_767790(ObjectMaster* a1)
 	else
 	{
 		NormalNormalM = v6->Normal;
-		if (PowerRun < 0.0)
+		if (PowerRun < 0.0f)
 		{
 			NormalRunPowerM = v1->Shape.pObjectList->Run;
-			PowerRun = PowerRun * -1.0;
+			PowerRun = PowerRun * -1.0f;
 		}
 		else
 		{
 			NormalRunPowerM = v1->Shape.pObjectList->Power;
 		}
-		if (FlySwim >= 0.0)
+		if (FlySwim >= 0.0f)
 		{
 			NeutralSFM = v1->Shape.pObjectList->Fly;
 			goto LABEL_15;
 		}
 		NeutralSFM = v1->Shape.pObjectList->Swim;
 	}
-	FlySwim = FlySwim * -1.0;
+	FlySwim = FlySwim * -1.0f;
 LABEL_15:
 	Magnitude = v2->EvolutionProgress;
-	if (PowerRun == 0.0)
+	if (PowerRun == 0.0f)
 	{
-		PowerRun = 0.000001;
+		PowerRun = 0.000001f;
 	}
-	if (FlySwim == 0.0)
+	if (FlySwim == 0.0f)
 	{
-		FlySwim = 0.000001;
+		FlySwim = 0.000001f;
 	}
 
-	flt_3CE2C64 = 1.0 - PowerRun;
-	flt_3CE2C4C = 1.0 - FlySwim;
-	flt_3CE2C04 = 1.0 - Magnitude;
-	v8 = 1.0 / (FlySwim + PowerRun);
+	flt_3CE2C64 = 1.0f - PowerRun;
+	flt_3CE2C4C = 1.0f - FlySwim;
+	flt_3CE2C04 = 1.0f - Magnitude;
+	v8 = 1.0f / (FlySwim + PowerRun);
 	ModifiedPowerRun = PowerRun * v8;
 	ModifiedFlySwim = v8 * FlySwim;
-	if (PowerRun <= 1.0)
+	if (PowerRun <= 1.0f)
 	{
-		if (PowerRun >= -1.0)
+		if (PowerRun >= -1.0f)
 		{
 			dword_3CE2C14 = PowerRun;
 		}
 		else
 		{
-			dword_3CE2C14 = -1.0;
+			dword_3CE2C14 = -1.0f;
 		}
 	}
 	else
 	{
-		dword_3CE2C14 = 1.0;
+		dword_3CE2C14 = 1.0f;
 	}
-	if (FlySwim <= 1.0)
+	if (FlySwim <= 1.0f)
 	{
-		if (FlySwim >= -1.0)
+		if (FlySwim >= -1.0f)
 		{
 			dword_3CE2C3C = FlySwim;
 		}
 		else
 		{
-			dword_3CE2C3C = -1.0;
+			dword_3CE2C3C = -1.0f;
 		}
 	}
 	else
 	{
-		dword_3CE2C3C = 1.0;
+		dword_3CE2C3C = 1.0f;
 	}
-	if (Magnitude <= 1.0)
+	if (Magnitude <= 1.0f)
 	{
-		if (Magnitude >= -1.0)
+		if (Magnitude >= -1.0f)
 		{
 			dword_3CE2C30 = Magnitude;
 		}
 		else
 		{
-			dword_3CE2C30 = -1.0;
+			dword_3CE2C30 = -1.0f;
 		}
 	}
 	else
 	{
-		dword_3CE2C30 = 1.0;
+		dword_3CE2C30 = 1.0f;
 	}
-	flt_3CE2C74 = 1.0 - dword_3CE2C14;
-	flt_3CE2C48 = 1.0 - dword_3CE2C3C;
-	flt_3CE2C54 = 1.0 - dword_3CE2C30;
+	flt_3CE2C74 = 1.0f - dword_3CE2C14;
+	flt_3CE2C48 = 1.0f - dword_3CE2C3C;
+	flt_3CE2C54 = 1.0f - dword_3CE2C30;
 	flt_3CE2C10 = dword_3CE2C14 * v8;
 	flt_3CE2C0C = v8 * dword_3CE2C3C;
 	v9 = (unsigned __int8)a1->Data1->Index;

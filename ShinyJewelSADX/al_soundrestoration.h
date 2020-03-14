@@ -1,6 +1,6 @@
 #pragma once
 #include "chao.h"
-FunctionPointer(Sint32, __cdecl PlaySoundXYZAlt, (int a1, EntityData1* a2, int a3, int a4, float x, float y, float z), 0x0424FC0);
+FunctionPointer(Sint32, PlaySoundXYZAlt, (int a1, EntityData1* a2, int a3, int a4, float x, float y, float z), 0x0424FC0);
 void ThinkOverwrite(ObjectMaster* a1, char a2, int a3);
 void RunFromPlayerOverwrite(ObjectMaster* a1, int a2);
 void TouchChinOverwrite();

@@ -59,7 +59,7 @@ void Radio_Main(ObjectMaster* a1)
 		v2->Scale.x = 0;
 		NJS_VECTOR position = a1->Data1->Position;
 		position.x -= 2;
-		position.x += rand() * 0.000030517578125 * 5;
+		position.x += rand() * 0.000030517578125f * 5;
 		//MusicParticle_Load(&position, v2->CharIndex);
 	}
 	v2->Scale.x++;

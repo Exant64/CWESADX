@@ -13,6 +13,9 @@
 
 // TODO: fix recap language arrays in disassembly (02BC3228)
 
+//my additions, too lazy to put them in the right address
+DataPointer(_camcontwk, camcont_wp, 0x03B2C660);
+
 DataArray(char, texlist, 0x7E5E64, 2);
 DataArray(int, SetDataThings, 0x7E5E98, 44);
 DataArray(int, CamDataThings, 0x7E5F48, 43);

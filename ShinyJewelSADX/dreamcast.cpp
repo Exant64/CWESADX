@@ -14,20 +14,20 @@ void __cdecl NewFlowerObject(ObjectMaster* a1)
 	v1 = a1->Data1;
 	if (a1->Parent->Data1->Rotation.x)
 	{
-		v1->Scale.x += 0.03;
-		if (v1->Scale.x > 1.0)
+		v1->Scale.x += 0.03f;
+		if (v1->Scale.x > 1.0f)
 		{
-			v1->Scale.x = 1.0;
+			v1->Scale.x = 1.0f;
 			a1->DisplaySub(a1);
 			return;
 		}
 	}
 	else
 	{
-		v1->Scale.x -= 0.03;
-		if (v1->Scale.x < 0.0)
+		v1->Scale.x -= 0.03f;
+		if (v1->Scale.x < 0.0f)
 		{
-			v1->Scale.x = 0.0;
+			v1->Scale.x = 0.0f;
 			CheckThingButThenDeleteObject(a1);
 		}
 	}
@@ -48,9 +48,9 @@ ObjectMaster* __cdecl Flower_Load(ObjectMaster* a1, NJS_VECTOR* a2)
 	v2->DisplaySub = sub_76EE70;
 	v2->DeleteSub = (void(__cdecl*)(ObjectMaster*))nullsub;
 	v4->Position = v6;
-	v4->Rotation.y = (double)rand() * 0.000030517578 * 360.0 * 65536.0 * 0.002777777777777778;
+	v4->Rotation.y = rand() * 0.000030517578f * 360.0f * 65536.0f * 0.002777777777777778f;
 
-	v4->NextAction = ((double)rand() * 0.000030517578) >= 0.5;
+	v4->NextAction = ((double)rand() * 0.000030517578f) >= 0.5f;
 	return v2;
 }
 

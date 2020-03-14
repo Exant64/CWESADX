@@ -5,7 +5,6 @@ int ALBHV_GotItem(ObjectMaster* a1)
 {
 	ChaoData1* v1; // esi
 	int v2; // eax
-	int v3; // esi
 
 	v1 = (ChaoData1*)a1->Data1;
 	v2 = v1->Behavior.Mode;
@@ -35,8 +34,6 @@ int ALBHV_GotItem(ObjectMaster* a1)
 signed int __cdecl ALBHV_Fishing(ObjectMaster* a1)
 {
 	ChaoData1* v1; // esi
-	int v2; // eax
-	int v3; // esi
 
 	v1 = (ChaoData1*)a1->Data1;
 

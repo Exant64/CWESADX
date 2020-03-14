@@ -133,12 +133,10 @@ void TV_Main(ObjectMaster* a1)
 	_BOOL1 v5; // sf
 	unsigned __int8 v6; // of
 	int v7; // eax
-	int v8; // ecx
 	double v9; // st7
 	char v10; // al
 	unsigned __int16 v11; // ax
 	char v12; // al
-	char* (*v13)[2]; // ecx
 	__int16 v14; // di
 	ObjectMaster* v15; // eax
 	char v16; // al
@@ -188,13 +186,13 @@ void TV_Main(ObjectMaster* a1)
 					v2->Rotation.x = 3;
 					v2->NextAction = 0;
 					v2->Index = 0;
-					a1a = (double)v7 * 0.000030517578125;
+					a1a = (double)v7 * 0.000030517578125f;
 					v9 = a1a;
-					if (a1a >= 0.30000001)
+					if (a1a >= 0.30000001f)
 					{
-						if (v9 >= 0.60000002)
+						if (v9 >= 0.60000002f)
 						{
-							if (v9 >= 0.8999999761581421)
+							if (v9 >= 0.8999999761581421f)
 							{
 								v2->Action = 5;
 								v2->InvulnerableTime = 0;
