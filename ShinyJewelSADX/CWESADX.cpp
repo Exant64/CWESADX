@@ -8,6 +8,9 @@
 #include "eff/ToyPresenter.h"
 #include "spartoi.h"
 #include "ModelInfo.cpp"
+
+#include "al_icon.h"
+
 #include "al_shape_basic.h"
 #include "al_toy/alo_toy.h"
 #include "al_motion/alm_dance_n.nam"
@@ -17,13 +20,6 @@
 #include "al_soundrestoration.h"
 #include "dreamcast.h"
 
-#include "data/icon/ChaoBall1.nja"
-#include "data/icon/SpikeBall.nja"
-#include "data/icon/HeartEmote.nja"
-#include "data/icon/HaloEmote.nja"
-#include "data/icon/ExclamationEmote.nja"
-#include "data/icon/SwirlEmote.nja"
-#include "data/icon/QuestionEmote.nja"
 #include <cassert>
 
 #include "kinder/HealthCenter.h"
@@ -1433,7 +1429,7 @@ extern "C"
 		//not available for now, needs a huge rewrite
 		if (config->getBool("Chao World Extended", "3DEmotion", true))
 		{
-			//WriteJump((void*)0x007364D0, EmotionBall_Display);
+			WriteJump((void*)0x007364D0, AL_IconDrawSub);
 		}
 
 		//Button restoration, unneeded for now
