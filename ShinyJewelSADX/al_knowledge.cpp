@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "chao.h"
 #include "al_knowledge.h"
 

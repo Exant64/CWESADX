@@ -213,6 +213,9 @@
     <ClInclude Include="al_icon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="al_kinder_bm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -312,6 +315,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="al_icon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="albhv\albhv_kanoke.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="al_kinder_bm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

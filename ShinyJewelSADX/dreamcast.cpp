@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "dreamcast.h"
 #include "CWESADX.h"
 #include "data/Flower1.h"

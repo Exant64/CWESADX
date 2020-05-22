@@ -1,5 +1,5 @@
 #pragma once
-#include "stdafx.h"
+
 #include "SADXModLoader.h"
 #include <random>
 void MusicParticle_Display(ObjectMaster *a1);

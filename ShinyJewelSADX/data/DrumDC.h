@@ -1,5 +1,5 @@
 #pragma once
-#include "stdafx.h"
+
 #include "ninja.h"
 #include "SADXModLoader.h"
 #include "Flower1.h"

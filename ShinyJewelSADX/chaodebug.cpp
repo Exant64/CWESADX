@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "SADXModLoader.h"
 #include <string>
 #include "motiontable.h"

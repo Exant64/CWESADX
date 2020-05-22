@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "albhv_console.h"
 #include "../al_toy/alo_console.h"
 

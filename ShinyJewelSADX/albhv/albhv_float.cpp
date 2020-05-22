@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "albhv_float.h"
 #include "../data/toy/alo_float.nja"
 
@@ -25,7 +25,7 @@ signed int __cdecl ALBHV_SwimFloat(ObjectMaster* a1)
 		++v1->Mode;
 	}
 	AL_SetItem(a1, 0x22, &object_00F005A0, &AL_TOY_TEXLIST); //0x22
-	SwimControl(a1);
+	//SwimControlStop(a1);
 	return 0;
 }
 void ALBHV_FloatCheck(ObjectMaster* a1, signed int(__cdecl* a2)(int))

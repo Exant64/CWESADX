@@ -1,5 +1,5 @@
 #pragma once
-#include "stdafx.h"
+
 #include "../chao.h"
 #include "HealthCenter.h"
 #include "al_pill.h"

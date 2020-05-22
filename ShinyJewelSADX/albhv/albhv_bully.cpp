@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "..//chao.h"
 
 signed int __cdecl BullyKnocked(ObjectMaster* a1)

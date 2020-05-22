@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "chao.h"
 #include "al_icon.h"
 #include "CWESADX.h"
@@ -87,8 +87,8 @@ void __cdecl AL_IconDrawSub(ObjectMaster* a1)
 		v.x = p3.x + v2->Icon.Up.x;
 		v.y = p3.y + v2->Icon.Up.y;
 		v.z = p3.z + v2->Icon.Up.z;
-		njProjectScreen(0, &p3, &p2);
-		njProjectScreen(0, &v, &v41);
+		//njProjectScreen(0, &p3, &p2);
+		//njProjectScreen(0, &v, &v41);
 		v4 = v2->Icon.Color;
 		njColorBlendingMode(0, NJD_COLOR_BLENDING_SRCALPHA);
 		njColorBlendingMode(NJD_DESTINATION_COLOR, NJD_COLOR_BLENDING_INVSRCALPHA);
@@ -164,6 +164,7 @@ void __cdecl AL_IconDrawSub(ObjectMaster* a1)
 				break;
 			case 4:
 				njTranslate(0, 0, -0.6f, 0);
+				njScale(0, 1, 1, 2);
 				njCnkDrawObject(&object_swirlicon);
 				break;
 			default:
@@ -183,16 +184,16 @@ void __cdecl AL_IconDrawSub(ObjectMaster* a1)
 			goto LABEL_33;
 		}
 		njCalcPoint(0, &v38, &vd);
-		v12 = vd.y;
+		
 		if (a1->Data1->Status & 0x1000)
 		{
-			v13 = v12 + 0.69999999;
+			vd.y += 0.7f;
 		}
 		else
 		{
-			v13 = v12 - 0.30000001;
+			vd.y += - 0.3f;
 		}
-		vd.y = v13;
+		
 		njPushMatrix(_nj_unit_matrix_);
 		v14 = v2->pParamGC;
 		v15 = (njSin(v2->Icon.PuniPhase) + 1.0) * 0.079999998 + 0.92000002;
@@ -242,16 +243,16 @@ void __cdecl AL_IconDrawSub(ObjectMaster* a1)
 						}
 						sya = sy + sy;
 						sxa = sx + sx;
-						v36 = (ChaoDataBase*)(unsigned __int16)(unsigned __int64)(acos(-njInnerProduct(&v, &v2->Icon.Up))
+						int bruh = (acos(-njInnerProduct(&v, &v2->Icon.Up))
 							* 65536.0
 							* 0.1591549762031479);
 						njSetTextureNum(
-							HeroIconNumberTable[(signed int)(unsigned __int64)((double)(signed int)v36 * 0.0054931640625 + 0.5) % 181]
+							HeroIconNumberTable[(signed int)(unsigned __int64)((double)(signed int)bruh * 0.0054931640625 + 0.5) % 181]
 							+ 6);
 						v18 = (atan2((v41.x - p2.x) - 1, -(v41.y - p2.y)) * 65536.0f * 0.1591549762031479f);
-						if (v18)
+						if (bruh)
 						{
-							njRotateZ(0, v18);
+							//njRotateX(0, (int)bruh);
 						}
 						njScale(0, sya, sxa, 1.0);
 						if (v14->Type == 21)

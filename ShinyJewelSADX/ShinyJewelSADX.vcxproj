@@ -146,7 +146,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -223,6 +223,7 @@
     <ClInclude Include="albhv\albhv_piano.h" />
     <ClInclude Include="al_gba_manager.h" />
     <ClInclude Include="al_icon.h" />
+    <ClInclude Include="al_kinder_bm.h" />
     <ClInclude Include="al_knowledge.h" />
     <ClInclude Include="al_motion\alm_dance_h.nam" />
     <ClInclude Include="al_shape_basic.h" />
@@ -278,8 +279,10 @@
     <ClCompile Include="albhv\albhv_fishing.cpp" />
     <ClCompile Include="albhv\albhv_float.cpp" />
     <ClCompile Include="albhv\albhv_hanabi.cpp" />
+    <ClCompile Include="albhv\albhv_kanoke.cpp" />
     <ClCompile Include="albhv\albhv_piano.cpp" />
     <ClCompile Include="al_icon.cpp" />
+    <ClCompile Include="al_kinder_bm.cpp" />
     <ClCompile Include="al_knowledge.cpp" />
     <ClCompile Include="al_shape_basic.cpp" />
     <ClCompile Include="al_toy\alo_ball.cpp" />

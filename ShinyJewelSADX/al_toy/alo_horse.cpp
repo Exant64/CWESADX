@@ -1,30 +1,31 @@
-#include "stdafx.h"
+
 #include "alo_horse.h"
 #include "../motiontable.h"
 
 //extern NJS_OBJECT object_00E1AA0C;
 //extern MotionTableAction stru_121AC70[5];
 
-NJS_MKEY_A stru_121AB40[17] =
+NJS_MKEY_SA stru_121AB40[17] =
 {
   { 0u, { 0, 0, 0 } },
   { 12u, { 0, 0, 0 } },
-  { 13u, { 0, 4294967142, 0 } },
+  { 13u, { 4294967142, 0, 0 } },
   { 14u, { 0, 0, 0 } },
-  { 15u, { 0, 636, 0 } },
-  { 16u, { 0, 1263, 0 } },
-  { 17u, { 0, 1820, 0 } },
-  { 18u, { 0, 2002, 0 } },
-  { 19u, { 0, 1422, 0 } },
-  { 20u, { 0, 701, 0 } },
+  { 15u, { 636, 0, 0 } },
+  { 16u, { 1263, 0, 0 } },
+  { 17u, { 1820, 0, 0 } },
+  { 18u, { 2002, 0, 0 } },
+  { 19u, { 1422, 0, 0 } },
+  { 20u, { 701, 0, 0 } },
   { 21u, { 0, 0, 0 } },
-  { 22u, { 0, 4294966653, 0 } },
-  { 23u, { 0, 4294966029, 0 } },
-  { 24u, { 0, 4294965476, 0 } },
-  { 25u, { 0, 4294965294, 0 } },
-  { 26u, { 0, 4294965853, 0 } },
-  { 27u, { 0, 4294966553, 0 } }
+  { 22u, { 4294966653, 0, 0 } },
+  { 23u, { 4294966029, 0, 0 } },
+  { 24u, { 4294965476, 0, 0 } },
+  { 25u, { 4294965294, 0, 0 } },
+  { 26u, { 4294965853, 0, 0 } },
+  { 27u, { 4294966553, 0, 0 } }
 };
+
 
 NJS_MKEY_F stru_121AA50[15] =
 {
@@ -45,18 +46,13 @@ NJS_MKEY_F stru_121AA50[15] =
   { 27u, {  0.0,  0.020369999,  0.0 } }
 };
 
-
-NJS_MDATA2 stru_121AC50[2] =
+NJS_MDATA2 stru_121AC50[1] =
 {
-  { { NULL, NULL }, { 0u, 0u } },
   { { &stru_121AA50, &stru_121AB40 }, { 15u, 17u } }
 };
 
-
-
 NJS_MOTION stru_121AA44 =
 { &stru_121AC50, 28u, 3u, 2u };
-
 
 MOTION_TABLE stru_121AC70[5] =
 {
@@ -194,19 +190,9 @@ void Horse_Display(ObjectMaster* a1)
 
 		njTranslate(0, a1->Data1->Position.x, a1->Data1->Position.y, a1->Data1->Position.z);
 		njRotateY(0, a1->Data1->Rotation.y);
-		//	njScale(0, 1, 1, 1);
-			//njCnkDrawObject(&object_00E1AA0C);
-			//sub_720A70(&object_00E1AA0C, motionTable->NJS_MOTION, 0);
-			//njAction_QueueObject(&object_00E1AA0C, motionTable->NJS_MOTION2, motionTable->frame);
-		//sub_73F6E0(&object_00E1AA0C, (MotionTableEntry*)& a1->UnknownB_ptr);
-		//njCnkDrawObject(& object_00E1AA0C);
-		njPushMatrixEx();
-		SetupWorldMatrix();
-		Direct3D_SetChunkModelRenderState();
 
-		//njTranslate(0, 3, 0, 0);
-		DisplayModelMotionTable((MotionTableEntry*)a1->UnknownB_ptr, &object_00E1AA0C);
-		Direct3D_UnsetChunkModelRenderState();
+		njPushMatrixEx();
+		DisplayModelMotionTable((MotionTableEntry*)a1->UnknownB_ptr, &object_00E1A9D4);
 		njPopMatrixEx();
 
 		njControl3D_Remove(NJD_CONTROL_3D_TRANS_MODIFIER | NJD_CONTROL_3D_SHADOW);
@@ -273,6 +259,8 @@ void PlaceHorse()
 		horseData->Scale.x = 1;
 		horseData->Scale.y = 1;
 		horseData->Scale.z = 1;
+
+
 		InitCollision(horse, &horseCollision, 1, 4);
 	}
 }

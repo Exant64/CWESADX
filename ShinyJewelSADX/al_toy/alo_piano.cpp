@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "alo_piano.h"
 //#include "data/toy/alo_hanabi_d.nja"
 //#include "data/toy/alo_hanabi_d.nja"
@@ -41,7 +41,7 @@ void Piano_Display(ObjectMaster* a1)
 		njTranslate(0, a1->Data1->Position.x, a1->Data1->Position.y, a1->Data1->Position.z);
 		njRotateY(0, a1->Data1->Rotation.y);
 		njScale(0, 1, 1, 1);
-		//njCnkDrawObject(_object_alo_jimen_pos_pen_pos_pen__3PAUcnkobj__A);
+		//njCnkDrawObject(&object_0006972C);
 
 		njControl3D_Remove(NJD_CONTROL_3D_TRANS_MODIFIER | NJD_CONTROL_3D_SHADOW);
 		njPopMatrixEx();

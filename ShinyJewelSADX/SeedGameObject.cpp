@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "SeedGameObject.h"
 //probably wont implement this in the end, im just experimenting with it
 FunctionPointer(void, __cdecl sub_73EF10, (NJS_VECTOR *a1, float a2), 0x73EF10); 

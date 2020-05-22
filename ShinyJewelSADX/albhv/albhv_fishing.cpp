@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "albhv_fishing.h"
 #include "..//data/toy/alo_fishingrod.nja"
 int ALBHV_GotItem(ObjectMaster* a1)

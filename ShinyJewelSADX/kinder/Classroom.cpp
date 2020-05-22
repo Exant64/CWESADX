@@ -1,5 +1,5 @@
 #pragma once
-#include "stdafx.h"
+
 #include "Classroom.h"
 #include "../chao.h"
 #include "../CWESADX.h"

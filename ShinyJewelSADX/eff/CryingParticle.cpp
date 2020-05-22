@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "CryingParticle.h"
 ParticleUserData cryingUserData = { 1, 0, 0, 8, 0.5, 0.99800003, -0.029999999, 0.0099999998, 0, 75000.0, 0, 0, 0, 0 };
 

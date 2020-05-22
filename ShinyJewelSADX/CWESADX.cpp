@@ -1,7 +1,9 @@
 //#pragma warning(push)
 //#pragma warning(disable:4838)
 
-#include "stdafx.h"
+
+#include <cassert>
+
 #include "CWESADX.h"
 #include "al_gba_manager.h"
 #include "motiontable.h"
@@ -20,15 +22,14 @@
 #include "al_soundrestoration.h"
 #include "dreamcast.h"
 
-#include <cassert>
-
 #include "kinder/HealthCenter.h"
 #include "kinder/Classroom.h"
+#include "al_kinder_bm.h"
+
 
 extern "C"
 {
 	__declspec(dllexport) ModInfo SADXModInfo = { ModLoaderVer };
-
 
 	FunctionPointer(int, sub_735000, (ObjectMaster* a1), 0x735000);
 	FunctionPointer(ObjectMaster*, GardenHat_Create, (int a1, NJS_VECTOR* a2, int a3, NJS_VECTOR* a4, ChaoData* a5), 0x007236F0);
@@ -238,63 +239,13 @@ extern "C"
 
 	void PatchShinyJewelGC()
 	{
-		WriteData((char*)0x0088A3DE, (char)63);
-		WriteData((char*)0x0088A3DD, (char)255);
-		WriteData((char*)0x0088A3DC, (char)63);
-		WriteData((char*)0x0088A3DF, (char)0);
-
-		WriteData((char*)0x0088A3E2, (char)127);
-		WriteData((char*)0x0088A3E1, (char)255);
-		WriteData((char*)0x0088A3E0, (char)127);
-		WriteData((char*)0x0088A3E3, (char)127);
-
-		WriteData((char*)0x0088A3EA, (char)255);
-		WriteData((char*)0x0088A3E9, (char)255);
-		WriteData((char*)0x0088A3E8, (char)127);
-		WriteData((char*)0x0088A3EB, (char)127);
-
-		WriteData((char*)0x0088A3EE, (char)127);
-		WriteData((char*)0x0088A3ED, (char)255);
-		WriteData((char*)0x0088A3EC, (char)127);
-		WriteData((char*)0x0088A3EF, (char)255);
-
-		WriteData((char*)0x0088A3F2, (char)127);
-		WriteData((char*)0x0088A3F1, (char)255);
-		WriteData((char*)0x0088A3F0, (char)255);
-		WriteData((char*)0x0088A3F3, (char)127);
-
-		WriteData((char*)0x0088A3F6, (char)0);
-		WriteData((char*)0x0088A3F5, (char)255);
-		WriteData((char*)0x0088A3F4, (char)255);
-		WriteData((char*)0x0088A3F7, (char)0);
-
-		WriteData((char*)0x0088A3FA, (char)255);
-		WriteData((char*)0x0088A3F9, (char)255);
-		WriteData((char*)0x0088A3F8, (char)0);
-		WriteData((char*)0x0088A3FB, (char)127);
-
-		WriteData((char*)0x0088A3FE, (char)76);
-		WriteData((char*)0x0088A3FD, (char)255);
-		WriteData((char*)0x0088A3FC, (char)0);
-		WriteData((char*)0x0088A3FF, (char)200);
-
-		WriteData((char*)0x0088A403, (char)0);
-
-		WriteData((char*)0x0088A406, (char)0);
-		WriteData((char*)0x0088A405, (char)255);
-		WriteData((char*)0x0088A404, (char)255);
-		WriteData((char*)0x0088A407, (char)200);
-
-		WriteData((char*)0x0088A40A, (char)255);
-		WriteData((char*)0x0088A409, (char)255);
-		WriteData((char*)0x0088A408, (char)0);
-		WriteData((char*)0x0088A40B, (char)200);
-
-		WriteData((char*)0x0088A40E, (char)255);
-		WriteData((char*)0x0088A40D, (char)255);
-		WriteData((char*)0x0088A40C, (char)176);
-		WriteData((char*)0x0088A40F, (char)128);
-
+		// 76, 200, 0, 255 - original
+		// 0, 255, 76, 200 - gc
+		for (int i = 0; i < 28; i++)
+		{
+			std::swap(ShinyJewelColors[i].b, ShinyJewelColors[i].r);
+			std::swap(ShinyJewelColors[i].g, ShinyJewelColors[i].a);
+		}
 	}
 
 	bool colorMixing;
@@ -625,12 +576,12 @@ extern "C"
 
 
 	//0,1,2,4,5,8,12,13,14,15,74,24,34,21,23,25,28,29,33
-	
+
 	__declspec(naked) void DarkEyeHack()
 	{
 		__asm
 		{
-			xor eax,eax
+			xor eax, eax
 			retn
 		}
 	}
@@ -638,249 +589,22 @@ extern "C"
 	MusicInfo TVChannel1Info = { "chao_g_tv_drama.adx",0 };
 	MusicInfo TVChannel2Info = { "chao_g_tv_cartoon.adx",0 };
 	MusicInfo TVChannel3Info = { "chao_g_tv_drama.adx",0 };
+
+
+	//#define DCCHAO
 #ifdef DCCHAO
-	void __cdecl sub_723990(__int16* a1, __int16* a2, float a3, Rotation3* out)
-	{
-		double v4; // st7
-		double v5; // st6
-		double v6; // st5
-		double v7; // st4
-		double v8; // st3
-		double v9; // st2
 
-		v4 = (double)(unsigned __int16)* a1 * 0.0054931640625;// NJD_ANG_DEG
-		v5 = (double)(unsigned __int16)a1[1] * 0.0054931640625;
-		v6 = (double)(unsigned __int16)a1[2] * 0.0054931640625;
-		v7 = (double)(unsigned __int16)* a2 * 0.0054931640625 - v4;
-		v8 = (double)(unsigned __int16)a2[1] * 0.0054931640625 - v5;
-		for (v9 = (double)(unsigned __int16)a2[2] * 0.0054931640625 - v6; v7 > 180.0; v7 = v7 - 360.0)
-		{
-			;
-		}
-		for (; v7 < -180.0; v7 = v7 + 360.0)
-		{
-			;
-		}
-		for (; v8 > 180.0; v8 = v8 - 360.0)
-		{
-			;
-		}
-		for (; v8 < -180.0; v8 = v8 + 360.0)
-		{
-			;
-		}
-		for (; v9 > 180.0; v9 = v9 - 360.0)
-		{
-			;
-		}
-		for (; v9 < -180.0; v9 = v9 + 360.0)
-		{
-			;
-		}
-		//v4 = key1
-		//a3 = rate1
-		//v7 = key2-key1
-		out->x = (unsigned __int64)((v7 * a3 + v4) * 65536.0 * 0.002777777777777778);
-		out->y = (unsigned __int64)((v8 * a3 + v5) * 65536.0 * 0.002777777777777778);
-		out->z = (unsigned __int64)((v9 * a3 + v6) * 65536.0 * 0.002777777777777778);
-	}
-	void __cdecl LerpChaoRotation(Rotation3* rot1, Rotation3* rot2, float a1, Rotation3* output)
-	{
-		double v4; // st7
-		double v5; // st6
-		double v6; // st5
-		double v7; // st4
-		double v8; // st3
-		double i; // st2
-
-		v4 = (double)rot1->x * 0.0054931640625;
-		v5 = (double)rot1->y * 0.0054931640625;
-		v6 = (double)rot1->z * 0.0054931640625;
-		v7 = (double)rot2->x * 0.0054931640625 - v4;
-		v8 = (double)rot2->y * 0.0054931640625 - v5;
-		for (i = (double)rot2->z * 0.0054931640625 - v6; v7 > 180.0; v7 = v7 - 360.0)
-		{
-			;
-		}
-		for (; v7 < -180.0; v7 = v7 + 360.0)
-		{
-			;
-		}
-		for (; v8 > 180.0; v8 = v8 - 360.0)
-		{
-			;
-		}
-		for (; v8 < -180.0; v8 = v8 + 360.0)
-		{
-			;
-		}
-		for (; i > 180.0; i = i - 360.0)
-		{
-			;
-		}
-		for (; i < -180.0; i = i + 360.0)
-		{
-			;
-		}
-		output->x = (unsigned __int64)((v7 * a1 + v4) * 65536.0 * 0.002777777777777778);
-		output->y = (unsigned __int64)((v8 * a1 + v5) * 65536.0 * 0.002777777777777778);
-		output->z = (unsigned __int64)((i * a1 + v6) * 65536.0 * 0.002777777777777778);
-	}
-
-	Uint32 _nuMotionSearchKey16(const void* key, int KeySize, Uint32 nbkeys, Uint16 frame)
-	{
-		Uint32		nb_a;
-		Uint32		nb_b;
-		Uint32		nb_mid;
-
-		nb_a = 0;
-		nb_b = nbkeys;
-		while (nb_b - nb_a > 1) {
-			nb_mid = (nb_a + nb_b) >> 1;
-
-			if (frame >= *(Uint16*)(((unsigned char*)key) + (nb_mid * KeySize))) {
-				nb_a = nb_mid;
-			}
-			else {
-				nb_b = nb_mid;
-			}
-		}
-
-		return	nb_a;
-	}
-
-	void Chao_GetMotionLinearKey(const void* key, int KeySize, Uint32 nbkeys, Float frame, Float frameCount,
-		const void** pKey1, const void** pKey2, Float* pRate)
-	{
-		Uint32			keyno;
-		Sint16			DiffKeyNo;
-		Uint16			keyframe1;
-		Uint16			keyframe2;
-		Uint16* key1;
-		Uint16* key2;
-
-		keyno = _nuMotionSearchKey16(key, KeySize, nbkeys, (Uint16)frame);
-
-		key1 = (Uint16*)(((unsigned char*)key) + keyno * KeySize);
-		key2 = (Uint16*)(((unsigned char*)key) + (keyno + 1) * KeySize);
-		if (*key1 == frameCount - 1)
-		{
-			key2 = (Uint16*)key;
-			*pRate = (frame - *key1);
-		}
-		else
-		{
-			*pRate = (frame - *key1) / (*key2 - *key1);
-		}
-
-		*pKey1 = key1;
-		*pKey2 = key2;
-	}
-
-	void RotateChao(al_object* a1)
-	{
-		NJS_MKEY_SA* key1;
-		NJS_MKEY_SA* key2;
-		float pRate;
-
-		Rotation3 rot1; // [esp+10h] [ebp-24h]
-		Rotation3 rot2; // [esp+1Ch] [ebp-18h]
-		Rotation3 output; // [esp+28h] [ebp-Ch]
-
-		if (ChaoMotionData->p[1])
-		{
-			Chao_GetMotionLinearKey(ChaoMotionData->p[1], sizeof(NJS_MKEY_SA), ChaoMotionData->nb[1], ChaoCurrentFrame, ChaoFrameCount, (const void**)& key1, (const void**)& key2, &pRate);
-			sub_723990((short*)key1->key, (__int16*)(key2->key), pRate, &rot1);
-		}
-		else
-		{
-			rot1.x = a1->Ang[0];
-			rot1.y = a1->Ang[1];
-			rot1.z = a1->Ang[2];
-		}
-		if (ChaoTransitionMotionData)
-		{
-			if (ChaoTransitionMotionData->p[1])
-			{
-				Chao_GetMotionLinearKey(ChaoTransitionMotionData->p[1], sizeof(NJS_MKEY_SA), ChaoTransitionMotionData->nb[1], ChaoTransitionStartFrame, ChaoTransitionFrameCount, (const void**)& key1, (const void**)& key2, &pRate);
-				sub_723990((short*)key1->key, (__int16*)(key2->key), pRate, &rot2);
-			}
-			else
-			{
-				rot2.x = a1->Ang[0];
-				rot2.y = a1->Ang[1];
-				rot2.z = a1->Ang[2];
-			}
-			LerpChaoRotation(&rot1, &rot2, ChaoLinkFrame, &output);
-			njRotateXYZ(0, output.x, output.y, output.z);
-		}
-		else
-		{
-			njRotateXYZ(0, rot1.x, rot1.y, rot1.z);
-		}
-	}
-
-	void PositionChao(al_object* a1)
-	{
-		NJS_MKEY_F* key1;
-		NJS_MKEY_F* key2;
-		float pRate;
-
-		NJS_VECTOR pos1; // [esp+10h] [ebp-24h]
-		NJS_VECTOR pos2; // [esp+1Ch] [ebp-18h]
-		NJS_VECTOR output; // [esp+28h] [ebp-Ch]
-
-		if (ChaoMotionData->p[0])
-		{
-			Chao_GetMotionLinearKey(ChaoMotionData->p[0], sizeof(NJS_MKEY_F), ChaoMotionData->nb[0], ChaoCurrentFrame, ChaoFrameCount, (const void**)& key1, (const void**)& key2, &pRate);
-			pos1.x = key1->key[0] + (key2->key[0] - key1->key[0]) * pRate;
-			pos1.y = key1->key[1] + (key2->key[1] - key1->key[1]) * pRate;
-			pos1.z = key1->key[2] + (key2->key[2] - key1->key[2]) * pRate;
-			njAddVector(&pos1, &a1->diff);
-		}
-		else
-		{
-			pos1.x = a1->Pos[0];
-			pos1.y = a1->Pos[1];
-			pos1.z = a1->Pos[2];
-		}
-		if (ChaoTransitionMotionData)
-		{
-			if (ChaoTransitionMotionData->p[0])
-			{
-				Chao_GetMotionLinearKey(ChaoTransitionMotionData->p[0], sizeof(NJS_MKEY_F), ChaoTransitionMotionData->nb[0], ChaoTransitionStartFrame, ChaoTransitionFrameCount, (const void**)& key1, (const void**)& key2, &pRate);
-				pos2.x = key1->key[0] + (key2->key[0] - key1->key[0]) * pRate;
-				pos2.y = key1->key[1] + (key2->key[1] - key1->key[1]) * pRate;
-				pos2.z = key1->key[2] + (key2->key[2] - key1->key[2]) * pRate;
-				njAddVector(&pos2, &a1->diff);
-			}
-			else
-			{
-				pos2.x = a1->Pos[0];
-				pos2.y = a1->Pos[1];
-				pos2.z = a1->Pos[2];
-			}
-			output.x = ChaoLinkFrame * pos2.x + pos1.x * (1.0f - ChaoLinkFrame);
-			output.y = ChaoLinkFrame * pos2.y + pos1.y * (1.0f - ChaoLinkFrame);
-			output.z = ChaoLinkFrame * pos2.z + pos1.z * (1.0f - ChaoLinkFrame);
-		}
-		else
-		{
-			output = pos1;
-		}
-		njTranslateV(0, &output);
-	}
 
 	const int CalcPosPtr = 0x00765110;
-	void AL_CalcShadowPos(ObjectMaster *a1)
+	void AL_CalcShadowPos(ObjectMaster* a1)
 	{
 		__asm
 		{
-			 mov eax, a1
-			 call CalcPosPtr
+			mov eax, a1
+			call CalcPosPtr
 		}
 	}
-	void AnimateChao(al_object *a1);
+	void AnimateChao(al_object* a1);
 	DataPointer(unsigned short, word_3CE2BF8, 0x3CE2BF8);
 	void CalculatePositions(ObjectMaster* a1, al_object* a2)
 	{
@@ -894,12 +618,12 @@ extern "C"
 			AnimateChao(ptr);
 			AL_CalcShadowPos(a1);
 			word_3CE2BF8++;
-			if (ptr->base.child)
-				CalculatePositions(a1, (ChunkObjectPointer*)ptr->base.child);
+			if (ptr->pChild)
+				CalculatePositions(a1, ptr->pChild);
 			njPopMatrixEx();
-			if (!ptr->base.sibling)
+			if (!ptr->pSibling)
 				break;
-			ptr = (ChunkObjectPointer*)ptr->base.sibling;
+			ptr = ptr->pSibling;
 		}
 	}
 
@@ -921,7 +645,7 @@ extern "C"
 		{
 			njRotateY(0, (unsigned __int16)v2);
 		}
-		CalculatePositions(a1, v1->ModelData.PointerToStructWithCnkObject);
+		CalculatePositions(a1, v1->Shape.pObject);
 		njPopMatrixEx();
 
 	}
@@ -930,7 +654,7 @@ extern "C"
 	{
 		ChaoData1* v1; // esi
 		char v2; // al
-		ChaoModelData* v3; // esi
+		AL_SHAPE* v3; // esi
 		int v4; // et1
 		double v6; // st7
 		unsigned __int8 v7; // c2
@@ -1034,12 +758,10 @@ extern "C"
 	FunctionPointer(void, sub_79F4D0, (CollisionInfo* a1), 0x79F4D0);
 	DataPointer(NJS_COLOR, stru_3D08580, 0x3D08580);
 
-
-//#define DCCHAO
 #ifdef DCCHAO
 	void DrawChao(ObjectMaster* a1, al_object* a2)
 	{
-		
+
 		while (1)
 		{
 			njPushMatrixEx();
@@ -1052,48 +774,48 @@ extern "C"
 
 			ChaoData1* data1 = (ChaoData1*)a1->Data1;
 			//chao coloring
-			if(ChaoNodeIndex != 18 && ChaoNodeIndex != 21 && ChaoNodeIndex != 28)
-				if(a2->model)
+			if (ChaoNodeIndex != 18 && ChaoNodeIndex != 21 && ChaoNodeIndex != 28)
+				if (a2->pModel)
 				{
-					for (int i = 0; i < a2->base.basicdxmodel->nbMat; i++)
+					for (int i = 0; i < ((NJS_MODEL_SADX*)a2->pModel)->nbMat; i++)
 					{
-						if (!data1->ChaoDataBase_ptr->Texture)
+						if (!data1->pParamGC->Texture)
 						{
-							if (data1->ChaoDataBase_ptr->MonotoneHighlights)
-								a2->base.basicdxmodel->mats[i].attrflags &= ~0x200000;
-							else a2->base.basicdxmodel->mats[i].attrflags |= 0x200000;
+							if (data1->pParamGC->MonotoneHighlights)
+								((NJS_MODEL_SADX*)a2->pModel)->mats[i].attrflags &= ~0x200000;
+							else ((NJS_MODEL_SADX*)a2->pModel)->mats[i].attrflags |= 0x200000;
 						}
 						else
 						{
-						
+
 						}
 					}
 				}
 
 			//Chao_CalculatePositions(a1);
-			int eyelidRotX = ((ChaoData1*)a1->Data1)->FacialData.EyeLidExpressionCurrCloseAng + ((ChaoData1*)a1->Data1)->FacialData.EyeLidBlinkAng - 0x4000;
-			
-			if (a2->toy.model)
+			int eyelidRotX = ((ChaoData1*)a1->Data1)->Face.EyeLidExpressionCurrCloseAng + ((ChaoData1*)a1->Data1)->Face.EyeLidBlinkAng - 0x4000;
+
+			if (a2->pItemObject)
+			{
+				njSetTexture(a2->pItemTexlist);
+				//SetChunkMaterialFlags(SecondTextureEnvironmentMap);
+				njPushMatrixEx();
+				if (a2->ItemOffsetFlag)
 				{
-					njSetTexture(a2->toy.texlist);
-					//SetChunkMaterialFlags(SecondTextureEnvironmentMap);
-					njPushMatrixEx();
-					if (a2->useTransform)
-					{
-						njTranslateEx(&a2->position);
-						njRotateXYZ(0, a2->rotation.x, a2->rotation.y, a2->rotation.z);
-					}
-					njScale(0, a2->toy.scale, a2->toy.scale, a2->toy.scale);
-					njCnkDrawObject(a2->toy.model);
-					njPopMatrixEx();
-					//SetChunkMaterialFlags(0);
+					njTranslateEx(&a2->ItemOffsetPos);
+					njRotateXYZ(0, a2->ItemOffsetAng.x, a2->ItemOffsetAng.y, a2->ItemOffsetAng.z);
 				}
+				njScale(0, a2->ItemScale, a2->ItemScale, a2->ItemScale);
+				njCnkDrawObject(a2->pItemObject);
+				njPopMatrixEx();
+				//SetChunkMaterialFlags(0);
+			}
 
 			if (ChaoNodeIndex == 19)              // left eyelid
 			{
-				if (((ChaoData1*)a1->Data1)->FacialData.EyeLidExpressionCurrSlopeAng)
+				if (((ChaoData1*)a1->Data1)->Face.EyeLidExpressionCurrSlopeAng)
 				{
-					njRotateZ(0, (unsigned __int16)((ChaoData1*)a1->Data1)->FacialData.EyeLidExpressionCurrSlopeAng);
+					njRotateZ(0, (unsigned __int16)((ChaoData1*)a1->Data1)->Face.EyeLidExpressionCurrSlopeAng);
 				}
 				if (eyelidRotX)
 				{
@@ -1102,9 +824,9 @@ extern "C"
 			}
 			if (ChaoNodeIndex == 22)              // right eyelid
 			{
-				if (((ChaoData1*)a1->Data1)->FacialData.EyeLidExpressionCurrSlopeAng)
+				if (((ChaoData1*)a1->Data1)->Face.EyeLidExpressionCurrSlopeAng)
 				{
-					int rot = -((ChaoData1*)a1->Data1)->FacialData.EyeLidExpressionCurrSlopeAng;
+					int rot = -((ChaoData1*)a1->Data1)->Face.EyeLidExpressionCurrSlopeAng;
 					njRotateZ(0, (unsigned __int16)rot);
 				}
 
@@ -1121,13 +843,13 @@ extern "C"
 
 			if (ChaoNodeIndex == 18)
 			{
-				njTranslate(0, ((ChaoData1*)a1->Data1)->FacialData.EyePosX, ((ChaoData1*)a1->Data1)->FacialData.EyePosY, 0.0);
-				//njScale(0, ((ChaoData1*)a1->Data1)->FacialData.EyePosX, ((ChaoData1*)a1->Data1)->FacialData.EyePosX, ((ChaoData1*)a1->Data1)->FacialData.EyePosX);
+				njTranslate(0, ((ChaoData1*)a1->Data1)->Face.EyePosX, ((ChaoData1*)a1->Data1)->Face.EyePosY, 0.0);
+				//njScale(0, ((ChaoData1*)a1->Data1)->Face.EyePosX, ((ChaoData1*)a1->Data1)->Face.EyePosX, ((ChaoData1*)a1->Data1)->Face.EyePosX);
 			}
 			else if (ChaoNodeIndex == 21)
 			{
-				//njScale(0, ((ChaoData1*)a1->Data1)->FacialData.EyePosX, ((ChaoData1*)a1->Data1)->FacialData.EyePosX, ((ChaoData1*)a1->Data1)->FacialData.EyePosX);
-				njTranslate(0, -((ChaoData1*)a1->Data1)->FacialData.EyePosX, ((ChaoData1*)a1->Data1)->FacialData.EyePosY, 0.0);
+				//njScale(0, ((ChaoData1*)a1->Data1)->Face.EyePosX, ((ChaoData1*)a1->Data1)->Face.EyePosX, ((ChaoData1*)a1->Data1)->Face.EyePosX);
+				njTranslate(0, -((ChaoData1*)a1->Data1)->Face.EyePosX, ((ChaoData1*)a1->Data1)->Face.EyePosY, 0.0);
 			}
 
 
@@ -1135,41 +857,41 @@ extern "C"
 			{
 				if (eyelidRotX != 0xFFFFC000)
 				{
-					njDrawModel_SADX_Dynamic(a2->base.basicdxmodel);
+					njDrawModel_SADX_Dynamic((NJS_MODEL_SADX*)a2->pModel);
 				}
 			}
 			else
 			{
-				if (a2->animalPart) {
+				if (a2->pPartsObject) {
 					njSetTexture((NJS_TEXLIST*)0x033A1340);
-					DrawCnkModel(a2->animalPart->chunkmodel);
+					DrawCnkModel(a2->pPartsObject->chunkmodel);
 				}
 				else
-					if (a2->base.basicdxmodel)
-						njDrawModel_SADX_Dynamic(a2->base.basicdxmodel);
+					if ((NJS_MODEL_SADX*)a2->pModel)
+						njDrawModel_SADX_Dynamic((NJS_MODEL_SADX*)a2->pModel);
 			}
 
 
 			ChaoNodeIndex++;
-			if (a2->base.child)
-				DrawChao(a1, (ChunkObjectPointer*)a2->base.child);
+			if (a2->pChild)
+				DrawChao(a1, a2->pChild);
 			njPopMatrixEx();
-			if (!a2->base.sibling)
+			if (!a2->pSibling)
 				break;
-			a2 = (ChunkObjectPointer*)a2->base.sibling;
+			a2 = a2->pSibling;
 		}
 	}
 
 	void __cdecl Chao_SetAnimVars(ObjectMaster* a1)
 	{
-		MotionTableData* v1; // eax
+		MOTION_CTRL* v1; // eax
 		ChaoData1* v2; // eax
 		NJS_MOTION* v3; // ecx
 		NJS_MOTION* v4; // ecx
 
 		v2 = (ChaoData1*)a1->Data1;
-		v3 = v2->MotionTable.LastNJS_Motion;
-		v1 = &v2->MotionTable;
+		v3 = v2->MotionCtrl.LastNJS_Motion;
+		v1 = &v2->MotionCtrl;
 		ChaoMotionData = (NJS_MDATA2*)v3->mdata;
 		ChaoFrameCount = v3->nbFrame;
 		ChaoCurrentFrame = v1->frame;
@@ -1196,7 +918,7 @@ extern "C"
 		njSetTexture(&ChaoTexLists[0]);
 		//SetChaoTexturePalette(a1, 0); //modified because headers
 		ChaoNodeIndex = 0;
-		DrawChao(a1, (ChunkObjectPointer*)((ChaoData1*)a1->Data1)->ModelData.PointerToStructWithCnkObject);//a1->Data1.Chao->ModelData.PointerToStructWithCnkObject);
+		DrawChao(a1, ((ChaoData1*)a1->Data1)->Shape.pObject);//a1->Data1.Chao->ModelData.PointerToStructWithCnkObject);
 		//njCnkDrawObject(&a1->Data1.Chao->ModelData.PointerToStructWithCnkObject->base);
 		njPopMatrixEx();
 		njPushMatrixEx();
@@ -1227,27 +949,27 @@ extern "C"
 		return modelInfo->getmodel();
 	}
 
-	DataArray(NJS_OBJECT*, Al_RootObject, 0x034BD4A8,100);
-	
+	DataArray(NJS_OBJECT*, Al_RootObject, 0x034BD4A8, 100);
+
 	void SetTexID(NJS_OBJECT* a1, int a2)
 	{
-		if(a1)
+		if (a1)
 			a1->basicdxmodel->mats[0].attr_texId = 164 + a2;
 	}
 	DataArray(uint16_t, word_88733C, 0x88733C, 26);
 	void __cdecl Chao_SetMouth_(ObjectMaster* a1, ChaoMouth a2, int timer)
 	{
 		ChaoData1* data1 = (ChaoData1*)a1->Data1;
-		data1->FacialData.MouthTimer = timer;
+		data1->Face.MouthTimer = timer;
 		uint16_t* a2a;
-		if ((unsigned __int8)data1->ChaoDataBase_ptr->Type < ChaoType_Neutral_Chaos || (unsigned __int8)data1->ChaoDataBase_ptr->Type > ChaoType_Dark_Chaos)
+		if ((unsigned __int8)data1->pParamGC->Type < ChaoType_Neutral_Chaos || (unsigned __int8)data1->pParamGC->Type > ChaoType_Dark_Chaos)
 			a2a = &word_88733C[2 * a2];
 		else
 			a2a = word_88733C;
-		if (data1->ModelData.baseChaoNodes[28]) 
+		if (data1->Shape.CurrObjectList[28])
 		{
-			data1->ModelData.baseChaoNodes[28]->basicdxmodel->mats[0].attr_texId = a2a[0];
-			data1->ModelData.baseChaoNodes[28]->basicdxmodel->mats[1].attr_texId = a2a[1];
+			((NJS_MODEL_SADX*)data1->Shape.CurrObjectList[28]->pModel)->mats[0].attr_texId = a2a[0];
+			((NJS_MODEL_SADX*)data1->Shape.CurrObjectList[28]->pModel)->mats[1].attr_texId = a2a[1];
 		}
 	}
 
@@ -1270,12 +992,12 @@ extern "C"
 	void LoadTempHeroEvo(const char* path, const char* name, int index)
 	{
 
-		Al_RootObject[index ] = LoadChaoModel(path, name);
-		Al_RootObject[index + 1 ] = Al_RootObject[index];
-		Al_RootObject[index + 2  ] = Al_RootObject[index];
-		Al_RootObject[index + 3 ] = Al_RootObject[index];
-		Al_RootObject[index + 4 ] = Al_RootObject[index];
-		Al_RootObject[index + 5 ] = Al_RootObject[index];
+		Al_RootObject[index] = LoadChaoModel(path, name);
+		Al_RootObject[index + 1] = Al_RootObject[index];
+		Al_RootObject[index + 2] = Al_RootObject[index];
+		Al_RootObject[index + 3] = Al_RootObject[index];
+		Al_RootObject[index + 4] = Al_RootObject[index];
+		Al_RootObject[index + 5] = Al_RootObject[index];
 	}
 
 	void LoadChaosEvo(const char* path, const char* name, int index)
@@ -1286,7 +1008,7 @@ extern "C"
 		Al_RootObject[index + 3] = Al_RootObject[index];
 		Al_RootObject[index + 4] = Al_RootObject[index];
 		Al_RootObject[index + 5] = Al_RootObject[index];
-		
+
 		for (int i = 0; i < 7; i++) //override hero slots
 			Al_RootObject[index + 6 + i] = Al_RootObject[i];
 
@@ -1314,7 +1036,7 @@ extern "C"
 	{
 		ChaoData1* v1; // esi
 		ChaoEvos* v2; // eax
-		ChaoModelData* v3; // esi
+		AL_SHAPE* v3; // esi
 
 		v1 = (ChaoData1*)a1->Data1;
 		v2 = v1->ModelData.NormalModels;
@@ -1336,13 +1058,27 @@ extern "C"
 	}
 #endif
 
+	void __cdecl sub_4DBCC0(ObjectMaster* a1)
+	{
+		ObjectFunc(AL_Draw, 0x0073F090);
+		sub_79F4D0(a1->Data1->CollisionInfo);
+		a1->Data1->CollisionInfo->CollisionArray[2].scale.x = 10;
+		a1->Data1->CollisionInfo->CollisionArray[2].scale.z = 10;
+
+		a1->Data1->CollisionInfo->CollisionArray[3].scale.x = 10;
+		a1->Data1->CollisionInfo->CollisionArray[3].scale.z = 10;
+		AL_Draw(a1);
+	}
+
 	__declspec(dllexport) void Init(const char* path, const HelperFunctions& helperFunctions)
 	{
 		const IniFile* config = new IniFile(std::string(path) + "\\config.ini");
 		//TVChannel1 = helperFunctions.RegisterMusicFile(TVChannel1Info);
 		//TVChannel2 = helperFunctions.RegisterMusicFile(TVChannel2Info);
 		//TVChannel3 = helperFunctions.RegisterMusicFile(TVChannel3Info);
-		PrintDebug(sizeof(CHAO_GLOBAL) == 0x2B8 ? "yes" : "FUCK ASS");
+
+		//WriteJump(Chao_Display, sub_4DBCC0);
+
 		//hanabi test
 		ChaoAnimations[0x77].NJS_MOTION = &animation_00BD2C80;
 		ChaoAnimations[0x77].FlagThing1 = 3;
@@ -1350,7 +1086,7 @@ extern "C"
 		ChaoAnimations[0x77].StartFrame = 0.0f;
 		ChaoAnimations[0x77].EndFrame = animation_00BD2C80.nbFrame - 1;
 		ChaoAnimations[0x77].PlaySpeed /= 2;
-	
+
 #ifdef DCCHAO
 		WriteJump((void*)0x00765010, AnimateChao);
 		//WriteJump((void*)Chao_Display, Chao_Display_);
@@ -1364,7 +1100,7 @@ extern "C"
 		LoadChaosEvo(path, "Light Chao.sa1mdl", 6 * (ChaoType_Neutral_Chaos - 2));
 		//LoadTempHeroEvo(path, "60.sa1mdl", 6 * (ChaoType_Neutral_Normal - 2));
 		WriteJump((void*)0x0075B360, SetTexID);
-		WriteJump(SetMouth,    Chao_SetMouth_);
+		WriteJump(SetMouth, Chao_SetMouth_);
 		WriteJump((void*)0x00741F20, Chao_UpdateModel);
 		WriteJump((void*)0x00741C80, Chao_LoadModels);
 		//WriteJump((void*)0x0074136A, DeleteChunkObjectPointer); 
@@ -1372,27 +1108,19 @@ extern "C"
 		WriteJump((void*)0x0073E730, DrawChao);
 		WriteJump((void*)FreeSomeChaoData, FreeSomeChaoData_);
 
-		int index = 364; // did it like this for debugging purposes
-		ChaoAnimations[index].NJS_MOTION = &_109ca0;
-		ChaoAnimations[index].FlagThing1 = 7;
-		ChaoAnimations[index].field_6 = 0;
-		ChaoAnimations[index].TransitionToID = -1;
-		ChaoAnimations[index].field_C = 0;
-		ChaoAnimations[index].StartFrame = 0;
-		ChaoAnimations[index].EndFrame = _109ca0.nbFrame - 1;
 #endif
 		//hero normal replaced with spartoi test
 #ifdef SPARTOI
 		int type = 6 * ((unsigned __int8)ChaoType_Hero_Normal - 2);
 		int type_ = 6 * ((unsigned __int8)ChaoType_Dark_Normal - 2);
 		NJS_OBJECT** chaoModels = (NJS_OBJECT * *)(0x34BD4A8);
-		
+
 		for (int i = type; i < type_; i++)
 			chaoModels[i] = &_0_Chao_Pos;
 #endif
 
 		WriteCall((void*)0x0072E729, RaceTest); //custom toy unlocks
-		WriteCall((void*)0x00715606, LoadMarketNew); //classroomtest
+		//WriteCall((void*)0x00715606, LoadMarketNew); //classroomtest
 
 		WriteData((char*)0x00751B1A, (char)0xEB); //recovers the medal display in races
 
@@ -1400,6 +1128,8 @@ extern "C"
 
 		//SADX tree progress speedup
 		*(float*)0x034BBADC = 0.000049999999f;
+
+		al_kinder_bm_Init();
 
 		//Crayon fix
 		NJS_MDATA2* data2 = (NJS_MDATA2*)ChaoAnimations[328].NJS_MOTION->mdata;

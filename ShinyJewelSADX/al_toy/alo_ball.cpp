@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "alo_ball.h"
 
 

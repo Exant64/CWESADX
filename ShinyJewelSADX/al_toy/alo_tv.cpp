@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "alo_tv.h"
 int TVChannel1;
 int TVChannel2;

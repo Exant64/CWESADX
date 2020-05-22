@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "..//chao.h"
 bool __cdecl ALO_GetPianoPlayPos(ObjectMaster* a2, NJS_VECTOR* a1)
 {

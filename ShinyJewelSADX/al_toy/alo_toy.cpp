@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "alo_toy.h"
 #include "alo_horse.h"
 #include "alo_radio.h"
@@ -15,9 +15,9 @@ void LoadSSGardenNew()
 //	LoadClassRoom();
 	NJS_VECTOR pos = { -52.5f ,0,-120.5f };
 	LoadSSGarden();
-	PlaceConsole(&pos);
-	//if (ChaoSaveFileTest[5])
-	PlaceTV();
+//	PlaceConsole(&pos);
+	if (ChaoSaveFileTest[5])
+		PlaceTV();
 }
 void LoadMRGardenNew()
 {
@@ -26,7 +26,7 @@ void LoadMRGardenNew()
 
 	LoadMRGarden();
 	PlaceHorse();
-	CreatePiano();
+	//CreatePiano();
 	position.x = -64;
 	position.y = 1.74;
 	position.z = 213;

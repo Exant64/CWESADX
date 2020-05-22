@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "al_soundrestoration.h"
 void ThinkOverwrite(ObjectMaster* a1, char a2, int a3) //think sound restored
 {

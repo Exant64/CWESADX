@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "albhv_hanabi.h"
 #include "../data/toy/alo_hanabi_d.nja"
 void Hanabi_Display(ObjectMaster* a1)
@@ -135,8 +135,8 @@ int ALBHV_Hanabi_(ObjectMaster* a1)
 			if (v2->pAnyTask->Data1->Action == 6)
 				return 2; //return 1
 	}
-	SetDebugFontColor(0xFFFFFFFF);
-	DisplayDebugFloat(NJM_LOCATION(20, 20), v2->MotionCtrl.frame, 3);
+	//SetDebugFontColor(0xFFFFFFFF);
+	//DisplayDebugFloat(NJM_LOCATION(20, 20), v2->MotionCtrl.frame, 3);
 
 	return 0;
 	/*

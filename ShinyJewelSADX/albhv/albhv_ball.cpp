@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "albhv_ball.h"
 
 NJS_VECTOR* __cdecl ALO_GetBallPos(ObjectMaster* a2)
@@ -57,81 +57,69 @@ signed int __cdecl ALBHV_Ball(ObjectMaster* a1) //copy of horse action
 		a2.x = njSin(v2->entity.Rotation.y) * 0.08f;
 		a2.z = njCos(v2->entity.Rotation.y) * 0.08f;
 		MOV_SetVelo(a1, &a2);
-		//v3->Speed = a2;
 		++v2->Behavior.Mode;
-		goto LABEL_9;
 		break;
 	case 1:
-	LABEL_9:
-		if (v3->Speed.y >= 0.0)
+		if (v3->Speed.y < 0.0)
 		{
-
-			//goto LABEL_12;
+			//AL_SetMotionLinkStep(a1, 347, 0x1Eu);
+			v2->ChaoFlag &= ~2;
+			v2->Behavior.Timer = 29;
+			++v2->Behavior.Mode;
 		}
-		//AL_SetMotionLinkStep(a1, 347, 0x1Eu);
-		v2->ChaoFlag &= ~2;
-		v2->Behavior.Timer = 29;
-		goto LABEL_11;
 		break;
 	case 2:
-		v10 = v2->Behavior.Timer - 1;
-		v11 = v2->Behavior.Timer == 1;
-		v2->Behavior.Timer = v10;
-		if ((v10 < 0) | (unsigned __int8)v11)
+		v2->Behavior.Timer--;
+		if (!v2->Behavior.Timer)
 		{
 			AL_SetMotionSkip(a1, 101);
 			ALOField_Load(a1, 233, &v2->entity.Position, 20, 1800);
 			v2->Behavior.Timer = 1800;
-		LABEL_11:
 			++v2->Behavior.Mode;
 		}
-		goto LABEL_12;
 		break;
 	case 3:
-		v12 = v2->Behavior.Timer - 1;
-		v11 = v2->Behavior.Timer == 1;
-		v2->Behavior.Timer = v12;
-		if (!((v12 < 0) | (unsigned __int8)v11))
+		v2->Behavior.Timer--;
+		if (!v2->Behavior.Timer)
 		{
-			goto LABEL_12;
+			a1a = (ObjectMaster*)rand();
+			AL_SetIntervalTimer(
+				v1,
+				8u,
+				(unsigned __int16)(1800 - (unsigned __int64)((double)(signed int)a1a * 0.000030517578 * -1801.0)));
+			v2->ChaoFlag |= 2u;
+			AL_SetBehavior(v1, ALBHV_JumpFromHorse);
+			return 1;
 		}
-		a1a = (ObjectMaster*)rand();
-		AL_SetIntervalTimer(
-			v1,
-			8u,
-			(unsigned __int16)(1800 - (unsigned __int64)((double)(signed int)a1a * 0.000030517578 * -1801.0)));
-		v2->ChaoFlag |= 2u;
-		AL_SetBehavior(v1, ALBHV_JumpFromHorse);
-		return 1;
 		break;
-	default:
-	LABEL_12:
-		al_entry_work* v6 = (al_entry_work*)ALW_IsCommunicating(a1);
-		if (v6)
+	}
+	al_entry_work* v6 = ALW_IsCommunicating(a1);
+	if (v6)
+	{
+		v7 = v2->Behavior.Mode;
+		if (v7 != 1)
 		{
-			v7 = v2->Behavior.Mode;
-			v8 = &v6->tp->Data1->Position;
-			if (v7 != 1)
+			if (v7 <= 1 || v7 > 3)
 			{
-				if (v7 <= 1 || v7 > 3)
-				{
-					return 0;
-				}
-				v2->entity.Position.x = (v8->x - v2->entity.Position.x) * 0.1f + v2->entity.Position.x;
-				v2->entity.Position.y = (v8->y - v2->entity.Position.y) * 0.1f + v2->entity.Position.y + 0.2f;
-				v2->entity.Position.z = (v8->z - v2->entity.Position.z) * 0.1f + v2->entity.Position.z;
+				return 0;
 			}
-			v2->entity.Rotation.y = BAMS_SubWrap(v2->entity.Rotation.y, v6->tp->Data1->Rotation.y, 1024);
-			return 0;
+			v2->entity.Position.x = (v6->tp->Data1->Position.x - v2->entity.Position.x) * 0.1f + v2->entity.Position.x;
+			v2->entity.Position.y = (v6->tp->Data1->Position.y - v2->entity.Position.y) * 0.1f + v2->entity.Position.y + 0.2f;
+			v2->entity.Position.z = (v6->tp->Data1->Position.z - v2->entity.Position.z) * 0.1f + v2->entity.Position.z;
 		}
+		v2->entity.Rotation.y = BAMS_SubWrap(v2->entity.Rotation.y, v6->tp->Data1->Rotation.y, 1024);
+		return 0;
+	}
+	else
+	{
 		AL_SetBehavior(a1, ALBHV_Touch);
 		return 1;
 	}
 }
 signed int __cdecl ALBHV_GoToBall(ObjectMaster* a1)
 {
-	ObjectMaster* v1 = (ObjectMaster*)AL_GetFoundToyTask((ObjectMaster*)a1);
-	if (!v1 || ALOField_Find(a1, 1, 233) || ALW_IsSheAttentionOtherOne((ObjectMaster*)a1, v1))
+	ObjectMaster* v1 = AL_GetFoundToyTask(a1);
+	if (!v1 || ALOField_Find(a1, 1, 233) || ALW_IsSheAttentionOtherOne(a1, v1))
 	{
 		return 1;
 	}
@@ -178,7 +166,7 @@ void __cdecl Chao_BallJoinDecision(ObjectMaster* a1, float* a2)
 			AL_SetBehavior(a1, ALBHV_TurnToAim);//sets rotation
 			AL_SetNextBehavior(a1, ALBHV_PostureChangeSit); //crawl anim
 			//AL_SetNextBehavior((ObjectMaster*)a1, (int)Chao_BallClap); //wait until ends,then clap
-
+			 
 			*a2 = 0.99f;
 		}
 	}

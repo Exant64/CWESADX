@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "chao.h"
 #include <cstdlib>
 
@@ -332,6 +332,77 @@ void __cdecl ChaoColoring(int texture, int color, int shiny, int highlights, NJS
 	}
 }
 
+void __cdecl chSetRareMaterial(int texture, int color, int shiny, int highlights, NJS_CNK_MODEL* model, int mixColor1, int mixColor2)
+{
+	int flag; // esi
+	unsigned __int16 v6; // ax
+	_BOOL1 noTexture; // zf
+	unsigned __int16 v8; // ax
+
+	flag = 0;
+	if (model)
+	{
+		if (shiny)
+		{
+			flag = 6;
+			SetChunkTextureIndexB(34u);
+			v6 = GetChunkTextureIndex(model);
+			SetChunkTextureIndexA(v6);
+		}
+		else
+		{
+			noTexture = texture == 0;
+			if (texture <= 0)
+			{
+			LABEL_7:
+				if (noTexture)
+				{
+					if (color > 0)
+					{
+						flag |= UseChunkObjectColor;
+						SetChunkColor(((int*)0x0389D828)[color - 1]);
+					}
+					if (highlights)
+					{
+						flag |= DontUseTexture;
+					}
+					else
+					{
+						v8 = GetChunkTextureIndex(model);
+						SetChunkTextureIndexA(v8);
+					}
+				}
+				if (flag)
+				{
+					EnableChunkMaterialFlags();
+					SetChunkMaterialFlags((ChunkMaterialFlagsEnum)flag);
+				}
+				else
+				{
+					DisableChunkMaterialFlags();
+					SetChunkMaterialFlags(0);
+				}
+				return;
+			}
+			flag = UseChunkObjectColor | SecondTextureEnvironmentMap;
+			SetChunkColor(-1);
+			SetChunkTextureIndexA(texture + 17);
+		}
+		noTexture = texture == 0;
+		goto LABEL_7;
+	}
+	if (mixColor1 != 0 && mixColor2 != 0)
+	{
+		NJS_COLOR* colorsNJ = (NJS_COLOR*)0x0389D828;
+		NJS_COLOR resultMixed;
+		resultMixed.argb.b = (Uint8)(colorsNJ[mixColor1].argb.b * 0.5f + colorsNJ[mixColor2].argb.b * (1 - 0.5f));
+		resultMixed.argb.r = (Uint8)(colorsNJ[mixColor1].argb.r * 0.5f + colorsNJ[mixColor2].argb.r * (1 - 0.5f));
+		resultMixed.argb.g = (Uint8)(colorsNJ[mixColor1].argb.g * 0.5f + colorsNJ[mixColor2].argb.g * (1 - 0.5f));
+		resultMixed.argb.a = (Uint8)(colorsNJ[mixColor1].argb.a * 0.5f + colorsNJ[mixColor2].argb.a * (1 - 0.5f));
+		SetChunkColor(resultMixed.color);
+	}
+}
+
 void AL_CalcParameter_Condition(ObjectMaster* a1, EMOTION_ENUM a2, int a3)
 {
 	//todo check if this works?
@@ -349,7 +420,6 @@ void AL_CalcParameter_Condition(ObjectMaster* a1, EMOTION_ENUM a2, int a3)
 
 void Chao_Init()
 {
-	//dont remember
 	//WriteJump((void*)0x0078AE30, ChaoColoring);
 
 	//character chao
@@ -362,13 +432,13 @@ void Chao_Init()
 	WriteJump(ALBHV_GoToTV, ALBHV_GoToTV_);
 
 	//temp debug hanabi
-	WriteJump(ALBHV_Think, ALBHV_Hanabi_);
+	//WriteJump(ALBHV_Think, ALBHV_Hanabi_);
 
 	//float toy
 	WriteCall((void*)0x0073C13F, ALBHV_FloatCheck);
 
 	//piano
-	WriteData((int*)0x0075F2E1, (int)ALBHV_GoToPiano);
+	//WriteData((int*)0x0075F2E1, (int)ALBHV_GoToPiano);
 	//WriteData((int*)0x0075F2E8, (int)& Chao_BallJoinDecision);
 	//WriteData((int*)0x0075F2EE, (int)& behaviour::ALBHV_GoToConsole);
 
@@ -384,5 +454,4 @@ void Chao_Init()
 
 	//unused rattles
 	WriteCall((void*)0x00763345, HeroDarkRattle); 
-	
 }

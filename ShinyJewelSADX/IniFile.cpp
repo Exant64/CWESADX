@@ -3,13 +3,14 @@
 * INI file parser.
 */
 
-#include "stdafx.h"	
+	
 #include "IniFile.hpp"
 #include "TextConv.hpp"
 
 #include <algorithm>
 #include <cctype>
 #include <cstdlib>
+#include <Windows.h>
 using std::transform;
 using std::string;
 using std::unordered_map;

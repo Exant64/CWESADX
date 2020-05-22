@@ -4,7 +4,7 @@
     <LocalDebuggerCommand>C:\Program Files\Sega\SONICADVENTUREDX\sonic.exe</LocalDebuggerCommand>
     <LocalDebuggerWorkingDirectory>C:\Program Files\Sega\SONICADVENTUREDX</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>-l ssgarden</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-l mrgarden</LocalDebuggerCommandArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LUA|Win32'">
     <LocalDebuggerCommand>C:\Program Files\Sega\SONICADVENTUREDX\sonic.exe</LocalDebuggerCommand>

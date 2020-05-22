@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "ToyPresenter.h"
 
 NJS_OBJECT* objects[] = { &object_00F005A0 , &TVTest };

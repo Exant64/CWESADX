@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "MusicParticle.h"
 
 //Planned to add some custom details to stuff
